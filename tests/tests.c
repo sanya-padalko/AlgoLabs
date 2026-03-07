@@ -211,7 +211,7 @@ int GetRandom() {
 
 void Test4() {
 	clock_t test4_time = clock();
-	FILE* test_res = fopen("test4.txt", "w");
+	FILE* test_res = fopen("tests/test4.txt", "w");
 	for (int elem_cnt = 1000; elem_cnt <= 1e6; elem_cnt += 1000) {
 		fprintf(test_res, "%d %lg %lg\n", elem_cnt, ListTest4(elem_cnt), VectTest4(elem_cnt));
 		if (elem_cnt % 10000 == 0)
