@@ -10,51 +10,63 @@ void Test1() {
 }
 
 double ListTest1() {
-	struct StackList* stacklist = StackList_ctr(sizeof(int));
-	double start = GetTime();
-	for (int val = 0; val < 1e6; ++val) {
-		int elem = val;
-		StackList_push(stacklist, &elem);
-	}
-	int current_size = 1e6;
-	for (int iter = 0; iter < 9 && current_size >= 1e5; ++iter) {
-		for (int pop_iter = 0; pop_iter < current_size / 2; ++pop_iter)
-			StackList_pop(stacklist);
-		current_size = current_size - current_size / 2;
-
-		for (int push_iter = 0; push_iter < current_size / 2; ++push_iter) {
-			int val = push_iter;
-			StackList_push(stacklist, &val);
+	int sum_test_cnt = 5;
+	double sum_time_spent = 0;
+	for (int test_cnt = 0; test_cnt < sum_test_cnt; ++test_cnt) {
+		struct StackList* stacklist = StackList_ctr(sizeof(int));
+		double start = GetTime();
+		for (int val = 0; val < 1e6; ++val) {
+			int elem = val;
+			StackList_push(stacklist, &elem);
 		}
-		current_size = current_size + current_size / 2;
+		int current_size = 1e6;
+		for (int iter = 0; iter < 9 && current_size >= 1e5; ++iter) {
+			for (int pop_iter = 0; pop_iter < current_size / 2; ++pop_iter)
+				StackList_pop(stacklist);
+			current_size = current_size - current_size / 2;
+
+			for (int push_iter = 0; push_iter < current_size / 2; ++push_iter) {
+				int val = push_iter;
+				StackList_push(stacklist, &val);
+			}
+			current_size = current_size + current_size / 2;
+		}
+		double spent_time = GetTime() - start;
+		StackList_dtr(stacklist);
+
+		sum_time_spent += spent_time;
 	}
-	double time_spent = GetTime() - start;
-	StackList_dtr(stacklist);
-	return time_spent;
+	return sum_time_spent / (double)sum_test_cnt;
 }
 
 double VectTest1() {
-	struct StackVector* stackvec = StackVector_ctr(1e6, sizeof(int));
-	double start = GetTime();
-	for (int val = 0; val < 1e6; ++val) {
-		int elem = val;
-		StackVector_push(stackvec, &elem);
-	}
-	int current_size = 1e6;
-	for (int iter = 0; iter < 9 && current_size >= 1e5; ++iter) {
-		for (int pop_iter = 0; pop_iter < current_size / 2; ++pop_iter)
-			StackVector_pop(stackvec);
-		current_size = current_size - current_size / 2;
-
-		for (int push_iter = 0; push_iter < current_size / 2; ++push_iter) {
-			int val = push_iter;
-			StackVector_push(stackvec, &val);
+	int sum_test_cnt = 5;
+	double sum_time_spent = 0;
+	for (int test_cnt = 0; test_cnt < sum_test_cnt; ++test_cnt) {
+		struct StackVector* stackvec = StackVector_ctr(1e6, sizeof(int));
+		double start = GetTime();
+		for (int val = 0; val < 1e6; ++val) {
+			int elem = val;
+			StackVector_push(stackvec, &elem);
 		}
-		current_size = current_size + current_size / 2;
+		int current_size = 1e6;
+		for (int iter = 0; iter < 9 && current_size >= 1e5; ++iter) {
+			for (int pop_iter = 0; pop_iter < current_size / 2; ++pop_iter)
+				StackVector_pop(stackvec);
+			current_size = current_size - current_size / 2;
+
+			for (int push_iter = 0; push_iter < current_size / 2; ++push_iter) {
+				int val = push_iter;
+				StackVector_push(stackvec, &val);
+			}
+			current_size = current_size + current_size / 2;
+		}
+		double spent_time = GetTime() - start;
+		StackVector_dtr(stackvec);
+
+		sum_time_spent += spent_time;
 	}
-	double time_spent = GetTime() - start;
-	StackVector_dtr(stackvec);
-	return time_spent;
+	return sum_time_spent / (double)sum_test_cnt;
 }
 
 void Test2() {
@@ -65,92 +77,104 @@ void Test2() {
 }
 
 double ListTest2() {
-	struct StackList* stacklist = StackList_ctr(sizeof(int));
-	double start = GetTime();
-	for (int val = 0; val < 1e6; ++val) {
-		int elem = val;
-		StackList_push(stacklist, &elem);
-	}
-	for (int iter = 0; iter < 100; ++iter) {
-		for (int pop_iter = 0; pop_iter < 10000; ++pop_iter)
-			StackList_pop(stacklist);
-
-		for (int push_iter = 0; push_iter < 10000; ++push_iter) {
-			int val = push_iter;
-			StackList_push(stacklist, &val);
+	int sum_test_cnt = 5;
+	double sum_time_spent = 0;
+	for (int test_cnt = 0; test_cnt < sum_test_cnt; ++test_cnt) {
+		struct StackList* stacklist = StackList_ctr(sizeof(int));
+		double start = GetTime();
+		for (int val = 0; val < 1e6; ++val) {
+			int elem = val;
+			StackList_push(stacklist, &elem);
 		}
-	}
+		for (int iter = 0; iter < 100; ++iter) {
+			for (int pop_iter = 0; pop_iter < 10000; ++pop_iter)
+				StackList_pop(stacklist);
 
-	int current_size = 1e6;
-	for (int iter = 0; iter < 9 && current_size >= 1e5; ++iter) {
-		for (int pop_iter = 0; pop_iter < current_size / 2; ++pop_iter)
-			StackList_pop(stacklist);
-		current_size = current_size - current_size / 2;
-
-		for (int push_iter = 0; push_iter < current_size / 2; ++push_iter) {
-			int val = push_iter;
-			StackList_push(stacklist, &val);
+			for (int push_iter = 0; push_iter < 10000; ++push_iter) {
+				int val = push_iter;
+				StackList_push(stacklist, &val);
+			}
 		}
-		current_size = current_size + current_size / 2;
-	}
 
-	for (int iter = 0; iter < 100; ++iter) {
-		for (int pop_iter = 0; pop_iter < 10000; ++pop_iter)
-			StackList_pop(stacklist);
+		int current_size = 1e6;
+		for (int iter = 0; iter < 9 && current_size >= 1e5; ++iter) {
+			for (int pop_iter = 0; pop_iter < current_size / 2; ++pop_iter)
+				StackList_pop(stacklist);
+			current_size = current_size - current_size / 2;
 
-		for (int push_iter = 0; push_iter < 10000; ++push_iter) {
-			int val = push_iter;
-			StackList_push(stacklist, &val);
+			for (int push_iter = 0; push_iter < current_size / 2; ++push_iter) {
+				int val = push_iter;
+				StackList_push(stacklist, &val);
+			}
+			current_size = current_size + current_size / 2;
 		}
+
+		for (int iter = 0; iter < 100; ++iter) {
+			for (int pop_iter = 0; pop_iter < 10000; ++pop_iter)
+				StackList_pop(stacklist);
+
+			for (int push_iter = 0; push_iter < 10000; ++push_iter) {
+				int val = push_iter;
+				StackList_push(stacklist, &val);
+			}
+		}
+		double spent_time = GetTime() - start;
+		StackList_dtr(stacklist);
+
+		sum_time_spent += spent_time;
 	}
-	double time_spent = GetTime() - start;
-	StackList_dtr(stacklist);
-	return time_spent;
+	return sum_time_spent / (double)sum_test_cnt;
 }
 
 double VectTest2() {
-	struct StackVector* stackvector = StackVector_ctr(1e6, sizeof(int));
-	double start = GetTime();
-	for (int val = 0; val < 1e6; ++val) {
-		int* val_ptr = (int*)calloc(1, sizeof(int));
-		*val_ptr = val;
-		StackVector_push(stackvector, val_ptr);
-	}
-	for (int iter = 0; iter < 100; ++iter) {
-		for (int pop_iter = 0; pop_iter < 10000; ++pop_iter)
-			StackVector_pop(stackvector);
-
-		for (int push_iter = 0; push_iter < 10000; ++push_iter) {
-			int val = push_iter;
-			StackVector_push(stackvector, &val);
+	int sum_test_cnt = 5;
+	double sum_time_spent = 0;
+	for (int test_cnt = 0; test_cnt < sum_test_cnt; ++test_cnt) {
+		struct StackVector* stackvector = StackVector_ctr(1e6, sizeof(int));
+		double start = GetTime();
+		for (int val = 0; val < 1e6; ++val) {
+			int* val_ptr = (int*)calloc(1, sizeof(int));
+			*val_ptr = val;
+			StackVector_push(stackvector, val_ptr);
 		}
-	}
-	
-	int current_size = 1e6;
-	for (int iter = 0; iter < 9 && current_size >= 1e5; ++iter) {
-		for (int pop_iter = 0; pop_iter < current_size / 2; ++pop_iter)
-			StackVector_pop(stackvector);
-		current_size = current_size - current_size / 2;
+		for (int iter = 0; iter < 100; ++iter) {
+			for (int pop_iter = 0; pop_iter < 10000; ++pop_iter)
+				StackVector_pop(stackvector);
 
-		for (int push_iter = 0; push_iter < current_size / 2; ++push_iter) {
-			int val = push_iter;
-			StackVector_push(stackvector, &val);
+			for (int push_iter = 0; push_iter < 10000; ++push_iter) {
+				int val = push_iter;
+				StackVector_push(stackvector, &val);
+			}
 		}
-		current_size = current_size + current_size / 2;
-	}
+		
+		int current_size = 1e6;
+		for (int iter = 0; iter < 9 && current_size >= 1e5; ++iter) {
+			for (int pop_iter = 0; pop_iter < current_size / 2; ++pop_iter)
+				StackVector_pop(stackvector);
+			current_size = current_size - current_size / 2;
 
-	for (int iter = 0; iter < 100; ++iter) {
-		for (int pop_iter = 0; pop_iter < 10000; ++pop_iter)
-			StackVector_pop(stackvector);
-
-		for (int push_iter = 0; push_iter < 10000; ++push_iter) {
-			int val = push_iter;
-			StackVector_push(stackvector, &val);
+			for (int push_iter = 0; push_iter < current_size / 2; ++push_iter) {
+				int val = push_iter;
+				StackVector_push(stackvector, &val);
+			}
+			current_size = current_size + current_size / 2;
 		}
+
+		for (int iter = 0; iter < 100; ++iter) {
+			for (int pop_iter = 0; pop_iter < 10000; ++pop_iter)
+				StackVector_pop(stackvector);
+
+			for (int push_iter = 0; push_iter < 10000; ++push_iter) {
+				int val = push_iter;
+				StackVector_push(stackvector, &val);
+			}
+		}
+		double spent_time = GetTime() - start;
+		StackVector_dtr(stackvector);
+
+		sum_time_spent += spent_time;
 	}
-	double time_spent = GetTime() - start;
-	StackVector_dtr(stackvector);
-	return time_spent;
+	return sum_time_spent / (double)sum_test_cnt;
 }
 
 void Test3() {
@@ -162,47 +186,59 @@ void Test3() {
 }
 
 double ListTest3() {
-	struct StackList* stacklist = StackList_ctr(sizeof(int));
-	for (int iter = 0; iter < 1e6; ++iter) {
-		int val = iter;
-		StackList_push(stacklist, &val);
-	}
-
-	double start = GetTime();
-	for (int iter = 0; iter < 1e6; ++iter) {
-		int val = iter;
-		int rnd_type = GetRandom();
-		if (rnd_type == 1)
+	int sum_test_cnt = 5;
+	double sum_time_spent = 0;
+	for (int test_cnt = 0; test_cnt < sum_test_cnt; ++test_cnt) {
+		struct StackList* stacklist = StackList_ctr(sizeof(int));
+		for (int iter = 0; iter < 1e6; ++iter) {
+			int val = iter;
 			StackList_push(stacklist, &val);
-		else
-			StackList_pop(stacklist);
-	}
+		}
 
-	double time_spent = GetTime() - start;
-	StackList_dtr(stacklist);
-	return time_spent;
+		double start = GetTime();
+		for (int iter = 0; iter < 1e6; ++iter) {
+			int val = iter;
+			int rnd_type = GetRandom();
+			if (rnd_type == 1)
+				StackList_push(stacklist, &val);
+			else
+				StackList_pop(stacklist);
+		}
+
+		double spent_time = GetTime() - start;
+		StackList_dtr(stacklist);
+
+		sum_time_spent += spent_time;
+	}
+	return sum_time_spent / (double)sum_test_cnt;
 }
 
 double VectTest3() {
-	struct StackVector* stackvec = StackVector_ctr(1e6, sizeof(int));
-	for (int iter = 0; iter < 1e6; ++iter) {
-		int val = iter;
-		StackVector_push(stackvec, &val);
-	}
-
-	double start = GetTime();
-	for (int iter = 0; iter < 1e6; ++iter) {
-		int val = iter;
-		int rnd_type = GetRandom();
-		if (rnd_type == 1)
+	int sum_test_cnt = 5;
+	double sum_time_spent = 0;
+	for (int test_cnt = 0; test_cnt < sum_test_cnt; ++test_cnt) {
+		struct StackVector* stackvec = StackVector_ctr(1e6, sizeof(int));
+		for (int iter = 0; iter < 1e6; ++iter) {
+			int val = iter;
 			StackVector_push(stackvec, &val);
-		else
-			StackVector_pop(stackvec);
-	}
+		}
 
-	double time_spent = GetTime() - start;
-	StackVector_dtr(stackvec);
-	return time_spent;
+		double start = GetTime();
+		for (int iter = 0; iter < 1e6; ++iter) {
+			int val = iter;
+			int rnd_type = GetRandom();
+			if (rnd_type == 1)
+				StackVector_push(stackvec, &val);
+			else
+				StackVector_pop(stackvec);
+		}
+
+		double spent_time = GetTime() - start;
+		StackVector_dtr(stackvec);
+
+		sum_time_spent += spent_time;
+	}
+	return sum_time_spent / (double)sum_test_cnt;
 }
 
 int GetRandom() {
@@ -224,27 +260,39 @@ void Test4() {
 }
 
 double ListTest4(int elem_cnt) {
-	struct StackList* stacklist = StackList_ctr(sizeof(int));
-	double start = GetTime();
-	for (int iter = 0; iter < elem_cnt; ++iter) {
-		int val = iter;
-		StackList_push(stacklist, &val);
+	int sum_test_cnt = 3;
+	double sum_time_spent = 0;
+	for (int test_cnt = 0; test_cnt < sum_test_cnt; ++test_cnt) {
+		struct StackList* stacklist = StackList_ctr(sizeof(int));
+		double start = GetTime();
+		for (int iter = 0; iter < elem_cnt; ++iter) {
+			int val = iter;
+			StackList_push(stacklist, &val);
+		}
+		double spent_time = (GetTime() - start);
+		StackList_dtr(stacklist);
+
+		sum_time_spent += spent_time;
 	}
-	double spent_time = (GetTime() - start);
-	StackList_dtr(stacklist);
-	return spent_time;
+	return sum_time_spent / (double)sum_test_cnt;
 }
 
 double VectTest4(int elem_cnt) {
-	struct StackVector* stackvec = StackVector_ctr(1e6, sizeof(int));
-	double start = GetTime();
-	for (int iter = 0; iter < elem_cnt; ++iter) {
-		int val = iter;
-		StackVector_push(stackvec, &val);
+	int sum_test_cnt = 3;
+	double sum_time_spent = 0;
+	for (int test_cnt = 0; test_cnt < sum_test_cnt; ++test_cnt) {
+		struct StackVector* stackvec = StackVector_ctr(1e6, sizeof(int));
+		double start = GetTime();
+		for (int iter = 0; iter < elem_cnt; ++iter) {
+			int val = iter;
+			StackVector_push(stackvec, &val);
+		}
+		double spent_time = (GetTime() - start);
+		StackVector_dtr(stackvec);
+
+		sum_time_spent += spent_time;
 	}
-	double spent_time = (GetTime() - start);
-	StackVector_dtr(stackvec);
-	return spent_time;
+	return sum_time_spent / (double)sum_test_cnt;
 }
 
 double GetTime() {
