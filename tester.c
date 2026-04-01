@@ -72,7 +72,31 @@ void BinaryTest() {
 }
 
 void BinomialTest() {
+    FILE* binom_res = fopen("binomial/binom", "w");
+    for (int cnt = 100000; cnt <= 1000000; cnt += 100000) {
+        int *arr = (int *)calloc(cnt, sizeof(int));
+        char *file_name = (char *)calloc(30, sizeof(int));
+        sprintf(file_name, "tests/%d.in", cnt);
+        FILE* test_file = fopen(file_name, "r");
+        for (int i = 0; i < cnt; ++i)
+            fscanf(test_file, "%d", arr + i);
+        
+        double start_time = GetTime();
+        struct BinomHeap* Heap = build_binom_heap(arr, cnt);
+        double end_time = GetTime();
+        fprintf(binom_res, "%lg\n", end_time - start_time);
 
+        /*if (!check_binom_heap(Heap, cnt)) {
+            fprintf(stderr, "Wrong binomial-heap's sorting\n");
+            return;
+        }*/
+
+        free(Heap);
+
+        fprintf(stderr, "Progress: %7d / %7d               \r", cnt, 1000000);
+    }
+
+    fclose(binom_res);
 }
 
 int main(int argc, char* argv[]) {
