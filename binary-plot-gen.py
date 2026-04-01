@@ -38,12 +38,12 @@ def plot_sorting_times():
 
     plt.xlabel('Количество элементов', fontsize=12, fontweight='bold')
     plt.ylabel('Время выполнения (миллисекунды)', fontsize=12, fontweight='bold')
-    plt.title('Сравнение времени выполнения квадратичных алгоритмов сортировки', 
+    plt.title('Бинарная куча с различными способами построения', 
               fontsize=14, fontweight='bold')
     plt.grid(True, alpha=0.3)
     plt.legend(loc='upper left', fontsize=10)
     
-    plt.text(0.15, 0.98, 'Количество элементов: от 0 до 1000 (шаг 50)',
+    plt.text(0.15, 0.98, 'Количество элементов: от 1e5 до 1e6 (шаг 1e5)',
              transform=plt.gca().transAxes, fontsize=9, 
              verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
     
