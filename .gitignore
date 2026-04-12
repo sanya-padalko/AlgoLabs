@@ -2,3 +2,4 @@ results/
 table_tests/test*
 tests/
 hash_table_res/
+table_tests/
