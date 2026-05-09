@@ -5,7 +5,7 @@
 
 DDnode* root = NULL;
 
-double TestAVL(int cnt, DDnode* (*test_func)(DDnode*, int)) {
+double TestDD(int cnt, DDnode* (*test_func)(DDnode*, int)) {
 	double sum_time = 0;
 	for (int i = 0; i < cnt; ++i) {
 		int val = rand();
@@ -40,8 +40,8 @@ int main() {
 		int 	cnt		= 5;
 
 		for (int test_ind = 0; test_ind < cnt; ++test_ind) {
-			sum_ins += TestAVL(size, 	 Insert);
-			sum_del += TestAVL(size / 2, Delete);
+			sum_ins += TestDD(size, 	 Insert);
+			sum_del += TestDD(size / 2, Delete);
 
 			ClearTree(root);
 			root = NULL;
