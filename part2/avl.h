@@ -7,8 +7,8 @@
 typedef struct AVLnode {
 	int		 val;
 	int		 height;
-	AVLnode* left;
-	AVLnode* right;
+	struct AVLnode* left;
+	struct AVLnode* right;
 } AVLnode;
 
 AVLnode*	Insert		(AVLnode* node, int val);
