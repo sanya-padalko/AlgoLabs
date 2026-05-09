@@ -1,7 +1,7 @@
 #include "bst.h"
 
 BSTnode* Insert(BSTnode* node, int val) {
-	if (!node)	return NodeCtor(val);
+	if (!node)	return BSTnodeCtor(val);
 
 	int node_val = GetVal(node);
 	if (val == node_val)
@@ -50,13 +50,20 @@ BSTnode* Delete(BSTnode* node, int val) {
 	return node;
 }
 
-BSTnode* NodeCtor(int val) {
+BSTnode* BSTnodeCtor(int val) {
 	BSTnode* node = (BSTnode*)calloc(1, sizeof(BSTnode));
 
 	node->val = val;
 	node->left = node->right = NULL;
 
 	return node;
+}
+
+void NodeDtor(BSTnode* node) {
+	node->val  = 0;
+	node->left = node->right = NULL;
+
+	free(node);
 }
 
 int GetVal(BSTnode* node) {
