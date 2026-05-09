@@ -133,6 +133,15 @@ AVLnode* Delete(AVLnode* node, int val) {
 	return node;
 }
 
+void ClearTree(AVLnode* node) {
+	if (!node)	return;
+
+	ClearTree(GetLeft(node));
+	ClearTree(GetRight(node));
+
+	NodeDtor(node);
+}
+
 AVLnode* AVLnodeCtor(int val) {
 	AVLnode* node = (AVLnode*)calloc(1, sizeof(AVLnode));
 
@@ -141,6 +150,13 @@ AVLnode* AVLnodeCtor(int val) {
 	node->height = 1;
 
 	return node;
+}
+
+void NodeDtor(AVLnode* node) {
+	node->val = node->height = 0;
+	node->left = node->right = NULL;
+
+	free(node);
 }
 
 int GetHeight(AVLnode *node) {
