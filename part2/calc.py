@@ -16,11 +16,11 @@ def calc_results():
 			for word in words:
 				numbers.append(float(word))
 		
-		plt.plot(range(1, 11), numbers, marker='o', label=name)
+		plt.plot(range(int(1e5), int(1e6) + 1, int(1e5)), numbers, marker='o', label=name)
 		
 
 	plt.title('Производительность AVL-дерева')
-	plt.xlabel('Номер замера (прогон)')
+	plt.xlabel('Количество элементов')
 	plt.ylabel('Время (мс)')
 	plt.legend()
 	plt.grid(True)
