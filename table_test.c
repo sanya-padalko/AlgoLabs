@@ -13,7 +13,7 @@ static double GetTime() {
 	return tv.tv_sec * 1000 + tv.tv_usec / 1000.0;
 }
 
-ui* test_arr;
+uint32_t* test_arr;
 float load_fact = 0.48;
 
 void test_2h(int type) {
@@ -36,7 +36,7 @@ void test_2h(int type) {
         double start_time = GetTime();
         for (int i = 0; i < size; ++i) {
             char type;
-            ui key;
+            uint32_t key;
             fscanf(test_file, "%c %u", &type, &key);
 
             if (type == 'i')
@@ -77,7 +77,7 @@ void test_cep(int type) {
         double start_time = GetTime();
         for (int i = 0; i < size; ++i) {
             char type;
-            ui key;
+            uint32_t key;
             fscanf(test_file, "%c %u", &type, &key);
 
             if (type == 'i')
@@ -117,7 +117,7 @@ void test_kuk(int type) {
         double start_time = GetTime();
         for (int i = 0; i < size; ++i) {
             char type;
-            ui key;
+            uint32_t key;
             fscanf(test_file, "%c %u", &type, &key);
 
             if (type == 'i')
@@ -157,7 +157,7 @@ void test_lin(int type) {
         double start_time = GetTime();
         for (int i = 0; i < size; ++i) {
             char type;
-            ui key;
+            uint32_t key;
             fscanf(test_file, "%c %u", &type, &key);
 
             if (type == 'i')
@@ -197,7 +197,7 @@ void test_sq(int type) {
         double start_time = GetTime();
         for (int i = 0; i < size; ++i) {
             char type;
-            ui key;
+            uint32_t key;
             fscanf(test_file, "%c %u", &type, &key);
 
             if (type == 'i')
@@ -219,7 +219,7 @@ void test_sq(int type) {
 }
 
 int main() {
-    test_arr = (ui*)calloc(1e6, sizeof(ui));
+    test_arr = (uint32_t*)calloc(1e6, sizeof(uint32_t));
     FILE* test_file = fopen("tests/tests_int.txt", "r");
     for (int i = 0; i < 1e6; ++i)
         fscanf(test_file, "%u", &test_arr[i]);

@@ -13,7 +13,7 @@ static double GetTime() {
 	return tv.tv_sec * 1000 + tv.tv_usec / 1000.0;
 }
 
-ui* test_arr;
+uint32_t* test_arr;
 
 void load_cep_test() {
 	fprintf(stderr, "Cep testing start...\n");
@@ -125,7 +125,7 @@ void load_sq_test() {
 
 int main() {
 	FILE* test_file	= fopen("tests/tests_int.txt", "r");
-	test_arr		= (ui*)calloc(1e6, sizeof(int));
+	test_arr		= (uint32_t*)calloc(1e6, sizeof(int));
 
 	for (int i = 0; i < 1e6; ++i)
 		fscanf(test_file, "%u", &test_arr[i]);
