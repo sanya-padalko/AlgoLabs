@@ -23,6 +23,6 @@ def draw_plots():
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.legend()
     
-    plt.savefig("table_load.svg")
+    plt.savefig("plots/table_load.svg")
 
 draw_plots()
