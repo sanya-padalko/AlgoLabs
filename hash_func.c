@@ -4,7 +4,8 @@
 #include <string.h>
 #include "hash_func.h"
 
-const int KEYS_CNT = 1000000;
+const int   KEYS_CNT = 1000000;
+uint32_t    crc32_table[256];
 
 int main() {
     run_int_tests();
@@ -190,8 +191,6 @@ uint32_t hash_str_crc32(const char* s) {
 
     return crc % TABLE_SIZE;
 }
-
-uint32_t crc32_table[256];
 
 void gen_crc32_table() {
     for (uint32_t i = 0; i < 256; ++i) {
