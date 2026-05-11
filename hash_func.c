@@ -7,11 +7,15 @@
 const int   KEYS_CNT = 1000000;
 uint32_t    crc32_table[256];
 
+#ifndef LOAD_TEST
+
 int main() {
     run_int_tests();
     run_float_tests();
     run_string_tests();
 }
+
+#endif
 
 void save_to_csv(const char* filename, uint32_t* cnt) {
     FILE* f = fopen(filename, "w");

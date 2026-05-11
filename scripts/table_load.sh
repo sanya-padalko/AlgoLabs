@@ -2,5 +2,5 @@
 
 mkdir -p hash_table_res
 
-./test_load.sh
-python3 table_load_plot.py
+./scripts/test_load.sh
+python3 scripts_py/table_load_plot.py
