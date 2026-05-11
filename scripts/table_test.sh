@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [[ ! -d "table_tests" ]]; then
-    mkdir table_tests
-fi
+mkdir -p table_tests
 
 python3 table_test.py
 echo "Tests generated"

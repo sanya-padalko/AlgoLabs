@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [[ ! -d "plots" ]]; then
-    mkdir plots
-fi
+mkdir -p plots
 
 python3 hash_func_plots/plot_int.py
 echo

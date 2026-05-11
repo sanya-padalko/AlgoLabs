@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [[ ! -d "tests" ]]; then
-    mkdir tests
-fi
+mkdir -p tests
 
 cd tests
 
