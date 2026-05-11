@@ -1,106 +1,106 @@
 #include "hash_table_sq.h"
 
-bool SqInsert(OpenTable* ht, uint32_t key) {
-	if ((float)(ht->count + 1) / ht->size > ht->max_load_factor)
-		SqRehash(ht);
+bool SqInsert(OpenTable* table, uint32_t key) {
+	if ((float)(table->count + 1) / table->size > table->max_load_factor)
+		SqRehash(table);
 	
-	uint32_t key_hash		= get_hash(key, ht->size);
+	uint32_t key_hash		= get_hash(key, table->size);
 	uint32_t start_key 	= key_hash;
 	int del_ind		= -1;
     int step = 1;
 
 	do {
-		if (ht->slots[key_hash] == EMP)
+		if (table->slots[key_hash] == EMP)
 			break;
 		
-		if (ht->slots[key_hash] == OCC && ht->keys[key_hash] == key)
+		if (table->slots[key_hash] == OCC && table->keys[key_hash] == key)
 			return false;
 		
-		if (ht->slots[key_hash] == DEL && del_ind == -1)
+		if (table->slots[key_hash] == DEL && del_ind == -1)
 			del_ind = key_hash;
 
-		key_hash = (key_hash + step * step) % ht->size;
+		key_hash = (key_hash + step * step) % table->size;
         ++step;
 	} while (key_hash != start_key);
 
 	uint32_t res_ind = (del_ind != -1 ? del_ind : key_hash);
 
-	ht->keys[res_ind] = key;
-	ht->slots[res_ind] = OCC;
+	table->keys[res_ind] = key;
+	table->slots[res_ind] = OCC;
 
-	++ht->count;
+	++table->count;
 	return true;
 }
 
-bool SqSearch(OpenTable* ht, uint32_t key) {
-	uint32_t key_hash = get_hash(key, ht->size);
+bool SqSearch(OpenTable* table, uint32_t key) {
+	uint32_t key_hash = get_hash(key, table->size);
 
 	uint32_t start_key = key_hash;
     int step = 1;
 
 	do {
-		if (ht->slots[key_hash] == EMP)
+		if (table->slots[key_hash] == EMP)
 			return false;
 
-		if (ht->slots[key_hash] == OCC && ht->keys[key_hash] == key) 
+		if (table->slots[key_hash] == OCC && table->keys[key_hash] == key) 
 			return true;
 
-		key_hash = (key_hash + step * step) % ht->size;
+		key_hash = (key_hash + step * step) % table->size;
         ++step;
 	} while (key_hash != start_key);
 
 	return false;
 }
 
-bool SqRemove(OpenTable* ht, uint32_t key) {
-	uint32_t key_hash = get_hash(key, ht->size);
+bool SqRemove(OpenTable* table, uint32_t key) {
+	uint32_t key_hash = get_hash(key, table->size);
 	
 	uint32_t start_key = key_hash;
     int step = 1;
 
 	do {
-		if (ht->slots[key_hash] == EMP)
+		if (table->slots[key_hash] == EMP)
 			return false;
 
-		if (ht->slots[key_hash] == OCC && ht->keys[key_hash] == key) {
-			ht->slots[key_hash] = DEL;
-			--ht->count;
+		if (table->slots[key_hash] == OCC && table->keys[key_hash] == key) {
+			table->slots[key_hash] = DEL;
+			--table->count;
 			return true;
 		}
 
-		key_hash = (key_hash + step * step) % ht->size;
+		key_hash = (key_hash + step * step) % table->size;
         ++step;
 	} while (key_hash != start_key);
 
 	return false;
 }
 
-void SqRehash(OpenTable* ht) {
-	int old_size 		= ht->size;
-	SlotType* old_slots = ht->slots;
-	int* old_keys 		= ht->keys;
+void SqRehash(OpenTable* table) {
+	int old_size 		= table->size;
+	SlotType* old_slots = table->slots;
+	int* old_keys 		= table->keys;
 
-	ht->size  *=	2;
-	ht->slots =		(SlotType*)calloc(ht->size, sizeof(SlotType));
-	ht->keys  =		(int*)calloc(ht->size, sizeof(int));
+	table->size  *=	2;
+	table->slots =		(SlotType*)calloc(table->size, sizeof(SlotType));
+	table->keys  =		(int*)calloc(table->size, sizeof(int));
 
 	for (int i = 0; i < old_size; ++i) {
 		if (old_slots[i] == OCC)
-			SqInsertKey(ht, old_keys[i]);
+			SqInsertKey(table, old_keys[i]);
 	}
 
 	free(old_slots);
 	free(old_keys);
 }
 
-void SqInsertKey(OpenTable* ht, uint32_t key) {
-	uint32_t key_hash = get_hash(key, ht->size);
+void SqInsertKey(OpenTable* table, uint32_t key) {
+	uint32_t key_hash = get_hash(key, table->size);
     int step = 1;
-	while (ht->slots[key_hash] == OCC) {
-		key_hash = (key_hash + step * step) % ht->size;
+	while (table->slots[key_hash] == OCC) {
+		key_hash = (key_hash + step * step) % table->size;
         ++step;
     }
 	
-	ht->keys[key_hash] = key;
-	ht->slots[key_hash] = OCC;
+	table->keys[key_hash] = key;
+	table->slots[key_hash] = OCC;
 }

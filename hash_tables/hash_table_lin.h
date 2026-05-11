@@ -3,11 +3,11 @@
 
 #include "hash_table_open.h"
 
-bool	LinInsert		(OpenTable* ht, uint32_t key)	;
-bool	LinSearch		(OpenTable* ht, uint32_t key)	;
-bool	LinRemove		(OpenTable* ht, uint32_t key)	;
+bool	LinInsert		(OpenTable* table, uint32_t key)	;
+bool	LinSearch		(OpenTable* table, uint32_t key)	;
+bool	LinRemove		(OpenTable* table, uint32_t key)	;
 
-void	LinRehash		(OpenTable* ht)					;
-void	LinInsertKey	(OpenTable* ht, uint32_t key)	;
+void	LinRehash		(OpenTable* table)					;
+void	LinInsertKey	(OpenTable* table, uint32_t key)	;
 
 #endif

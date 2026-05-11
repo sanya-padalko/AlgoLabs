@@ -8,14 +8,14 @@
 #define MAX_ITERS 100
 
 
-bool		KukInsert		(OpenTable* ht, uint32_t key)	;
-bool		KukSearch		(OpenTable* ht, uint32_t key)	;
-bool		KukRemove		(OpenTable* ht, uint32_t key)	;
+bool		KukInsert		(OpenTable* table, uint32_t key)	;
+bool		KukSearch		(OpenTable* table, uint32_t key)	;
+bool		KukRemove		(OpenTable* table, uint32_t key)	;
 
-void		KukRehash		(OpenTable* ht)					;
-bool		DumbKukInsert	(OpenTable* ht, uint32_t key)	;
+void		KukRehash		(OpenTable* table)					;
+bool		DumbKukInsert	(OpenTable* table, uint32_t key)	;
 
-uint32_t	kuk_hash_1		(uint32_t key, int size)		;
-uint32_t	kuk_hash_2		(uint32_t key, int size)		;
+uint32_t	kuk_hash_1		(uint32_t key, int size)		    ;
+uint32_t	kuk_hash_2		(uint32_t key, int size)		    ;
 
 #endif

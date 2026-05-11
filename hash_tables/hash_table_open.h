@@ -18,7 +18,7 @@ typedef struct {
 	float		max_load_factor;
 } OpenTable;
 
-OpenTable*	OpenTableCtor	(int size, float lf)	;
-void		OpenTableDtor	(OpenTable* ht)			;
+OpenTable*	OpenTableCtor	(int size, float lf)		;
+void		OpenTableDtor	(OpenTable* table)			;
 
 #endif

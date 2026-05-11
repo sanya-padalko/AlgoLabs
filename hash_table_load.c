@@ -19,17 +19,17 @@ void load_cep_test() {
 	fprintf(stderr, "Cep testing start...\n");
 	FILE* res_file = fopen("hash_table_res/cep", "w");
 	for (float cur_lf = 0.4; cur_lf <= 0.8; cur_lf += 0.01) {
-		CepTable* ht = CepTableCtor(4, cur_lf);
+		CepTable* table = CepTableCtor(4, cur_lf);
 
 		double start_time = GetTime();
 		for (int i = 0; i < 1e6; ++i)
-			CepInsert(ht, test_arr[i]);
+			CepInsert(table, test_arr[i]);
 
 		double end_time = GetTime();
 
 		fprintf(res_file, "%lg\n", end_time - start_time);
 
-		CepTableDtor(ht);
+		CepTableDtor(table);
 		fprintf(stderr, "%lg / %lg\r", cur_lf, 0.8);
 	}
 		fclose(res_file);
@@ -41,17 +41,17 @@ void load_2h_test() {
 	fprintf(stderr, "2h testing start...\n");
 	FILE* res_file = fopen("hash_table_res/2h", "w");
 	for (float cur_lf = 0.4; cur_lf <= 0.8; cur_lf += 0.01) {
-		OpenTable* ht = OpenTableCtor(4, cur_lf);
+		OpenTable* table = OpenTableCtor(4, cur_lf);
 
 		double start_time = GetTime();
 		for (int i = 0; i < 1e6; ++i)
-			DubInsert(ht, test_arr[i]);
+			DubInsert(table, test_arr[i]);
 
 		double end_time = GetTime();
 
 		fprintf(res_file, "%lg\n", end_time - start_time);
 
-		OpenTableDtor(ht);
+		OpenTableDtor(table);
 		fprintf(stderr, "%lg / %lg\r", cur_lf, 0.8);
 	}
 	fclose(res_file);
@@ -63,17 +63,17 @@ void load_kuk_test() {
 	fprintf(stderr, "Kukushka testing start...\n");
 	FILE* res_file = fopen("hash_table_res/kuk", "w");
 	for (float cur_lf = 0.4; cur_lf <= 0.8; cur_lf += 0.01) {
-		OpenTable* ht = OpenTableCtor(4, cur_lf);
+		OpenTable* table = OpenTableCtor(4, cur_lf);
 
 		double start_time = GetTime();
 		for (int i = 0; i < 1e6; ++i)
-			KukInsert(ht, test_arr[i]);
+			KukInsert(table, test_arr[i]);
 
 		double end_time = GetTime();
 
 		fprintf(res_file, "%lg\n", end_time - start_time);
 
-		OpenTableDtor(ht);
+		OpenTableDtor(table);
 		fprintf(stderr, "%lg / %lg\r", cur_lf, 0.8);
 	}
 	fclose(res_file);
@@ -85,17 +85,17 @@ void load_lin_test() {
 	fprintf(stderr, "Linear testing start...\n");
 	FILE* res_file = fopen("hash_table_res/lin", "w");
 	for (float cur_lf = 0.4; cur_lf <= 0.8; cur_lf += 0.01) {
-		OpenTable* ht = OpenTableCtor(4, cur_lf);
+		OpenTable* table = OpenTableCtor(4, cur_lf);
 
 		double start_time = GetTime();
 		for (int i = 0; i < 1e6; ++i)
-			LinInsert(ht, test_arr[i]);
+			LinInsert(table, test_arr[i]);
 
 		double end_time = GetTime();
 
 		fprintf(res_file, "%lg\n", end_time - start_time);
 
-		OpenTableDtor(ht);
+		OpenTableDtor(table);
 		fprintf(stderr, "%lg / %lg\r", cur_lf, 0.8);
 	}
 	fclose(res_file);
@@ -106,17 +106,17 @@ void load_sq_test() {
 	fprintf(stderr, "Square testing start...\n");
 	FILE* res_file = fopen("hash_table_res/sq", "w");
 	for (float cur_lf = 0.4; cur_lf <= 0.8; cur_lf += 0.01) {
-		OpenTable* ht = OpenTableCtor(4, cur_lf);
+		OpenTable* table = OpenTableCtor(4, cur_lf);
 
 		double start_time = GetTime();
 		for (int i = 0; i < 1e6; ++i)
-			SqInsert(ht, test_arr[i]);
+			SqInsert(table, test_arr[i]);
 
 		double end_time = GetTime();
 
 		fprintf(res_file, "%lg\n", end_time - start_time);
 
-		OpenTableDtor(ht);
+		OpenTableDtor(table);
 		fprintf(stderr, "%lg / %lg\r", cur_lf, 0.8);
 	}
 	fclose(res_file);

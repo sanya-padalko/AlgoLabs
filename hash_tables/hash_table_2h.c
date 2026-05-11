@@ -1,105 +1,105 @@
 #include "hash_table_2h.h"
 
-bool DubInsert(OpenTable* ht, uint32_t key) {
-	if ((float)(ht->count + 1) / ht->size > ht->max_load_factor)
-		DubRehash(ht);
+bool DubInsert(OpenTable* table, uint32_t key) {
+	if ((float)(table->count + 1) / table->size > table->max_load_factor)
+		DubRehash(table);
 	
-	uint32_t key_hash		= get_hash(key, ht->size);
+	uint32_t key_hash		= get_hash(key, table->size);
 	uint32_t start_key 		= key_hash;
 	int del_ind				= -1;
-	uint32_t step			= step_hash(key, ht->size);
+	uint32_t step			= step_hash(key, table->size);
 
 	do {
-		if (ht->slots[key_hash] == EMP)
+		if (table->slots[key_hash] == EMP)
 			break;
 		
-		if (ht->slots[key_hash] == OCC && ht->keys[key_hash] == key)
+		if (table->slots[key_hash] == OCC && table->keys[key_hash] == key)
 			return false;
 		
-		if (ht->slots[key_hash] == DEL && del_ind == -1)
+		if (table->slots[key_hash] == DEL && del_ind == -1)
 			del_ind = key_hash;
 
-		key_hash = (key_hash + step) % ht->size;
+		key_hash = (key_hash + step) % table->size;
 	} while (key_hash != start_key);
 
 	uint32_t res_ind = (del_ind != -1 ? del_ind : key_hash);
 
-	ht->keys[res_ind] = key;
-	ht->slots[res_ind] = OCC;
+	table->keys[res_ind] = key;
+	table->slots[res_ind] = OCC;
 
-	++ht->count;
+	++table->count;
 	return true;
 }
 
-bool DubSearch(OpenTable* ht, uint32_t key) {
-	uint32_t key_hash = get_hash(key, ht->size);
+bool DubSearch(OpenTable* table, uint32_t key) {
+	uint32_t key_hash = get_hash(key, table->size);
 
 	uint32_t start_key = key_hash;
-	uint32_t step = step_hash(key, ht->size);
+	uint32_t step = step_hash(key, table->size);
 
 	do {
-		if (ht->slots[key_hash] == EMP)
+		if (table->slots[key_hash] == EMP)
 			return false;
 
-		if (ht->slots[key_hash] == OCC && ht->keys[key_hash] == key) 
+		if (table->slots[key_hash] == OCC && table->keys[key_hash] == key) 
 			return true;
 
-		key_hash = (key_hash + step) % ht->size;
+		key_hash = (key_hash + step) % table->size;
 	} while (key_hash != start_key);
 
 	return false;
 }
 
-bool DubRemove(OpenTable* ht, uint32_t key) {
-	uint32_t key_hash = get_hash(key, ht->size);
+bool DubRemove(OpenTable* table, uint32_t key) {
+	uint32_t key_hash = get_hash(key, table->size);
 	
 	uint32_t start_key = key_hash;
-	uint32_t step = step_hash(key, ht->size);
+	uint32_t step = step_hash(key, table->size);
 
 	do {
-		if (ht->slots[key_hash] == EMP)
+		if (table->slots[key_hash] == EMP)
 			return false;
 
-		if (ht->slots[key_hash] == OCC && ht->keys[key_hash] == key) {
-			ht->slots[key_hash] = DEL;
-			--ht->count;
+		if (table->slots[key_hash] == OCC && table->keys[key_hash] == key) {
+			table->slots[key_hash] = DEL;
+			--table->count;
 			return true;
 		}
 
-		key_hash = (key_hash + step) % ht->size;
+		key_hash = (key_hash + step) % table->size;
 	} while (key_hash != start_key);
 
 	return false;
 }
 
-void DubRehash(OpenTable* ht) {
-	int old_size 		= ht->size;
-	SlotType* old_slots = ht->slots;
-	int* old_keys 		= ht->keys;
+void DubRehash(OpenTable* table) {
+	int old_size 		= table->size;
+	SlotType* old_slots = table->slots;
+	int* old_keys 		= table->keys;
 
-	ht->size  *=	2;
-	ht->slots =		(SlotType*)calloc(ht->size, sizeof(SlotType));
-	ht->keys  =		(int*)calloc(ht->size, sizeof(int));
+	table->size  *=	2;
+	table->slots =		(SlotType*)calloc(table->size, sizeof(SlotType));
+	table->keys  =		(int*)calloc(table->size, sizeof(int));
 
 	for (int i = 0; i < old_size; ++i) {
 		if (old_slots[i] == OCC)
-			DubInsertKey(ht, old_keys[i]);
+			DubInsertKey(table, old_keys[i]);
 	}
 
 	free(old_slots);
 	free(old_keys);
 }
 
-void DubInsertKey(OpenTable* ht, uint32_t key) {
-	uint32_t key_hash = get_hash(key, ht->size);
-	uint32_t step	  = step_hash(key, ht->size);
+void DubInsertKey(OpenTable* table, uint32_t key) {
+	uint32_t key_hash = get_hash(key, table->size);
+	uint32_t step	  = step_hash(key, table->size);
 
-	while (ht->slots[key_hash] == OCC) {
-		key_hash = (key_hash + step) % ht->size;
+	while (table->slots[key_hash] == OCC) {
+		key_hash = (key_hash + step) % table->size;
     }
 	
-	ht->keys[key_hash] = key;
-	ht->slots[key_hash] = OCC;
+	table->keys[key_hash] = key;
+	table->slots[key_hash] = OCC;
 }
 
 uint32_t step_hash(uint32_t key, int size) {

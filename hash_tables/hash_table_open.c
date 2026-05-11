@@ -1,22 +1,22 @@
 #include "hash_table_open.h"
 
 OpenTable* OpenTableCtor(int size, float lf) {
-	OpenTable* ht = (OpenTable*)malloc(sizeof(OpenTable));
+	OpenTable* table = (OpenTable*)malloc(sizeof(OpenTable));
 
-	ht->size			= size;
-	ht->count			= 0;
-	ht->max_load_factor	= lf;
-	ht->slots			= (SlotType*)calloc(size, sizeof(SlotType));
-	ht->keys			= (int*)calloc(size, sizeof(int));
+	table->size			= size;
+	table->count			= 0;
+	table->max_load_factor	= lf;
+	table->slots			= (SlotType*)calloc(size, sizeof(SlotType));
+	table->keys			= (int*)calloc(size, sizeof(int));
 
 	for (int i = 0; i < size; ++i)
-		ht->slots[i] = EMP;
+		table->slots[i] = EMP;
 
-	return ht;
+	return table;
 }
 
-void OpenTableDtor(OpenTable* ht) {
-	free(ht->keys);
-	free(ht->slots);
-	free(ht);
+void OpenTableDtor(OpenTable* table) {
+	free(table->keys);
+	free(table->slots);
+	free(table);
 }

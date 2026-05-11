@@ -1,11 +1,11 @@
 #include "hash_table_cep.h"
 
-bool CepInsert(CepTable* ht, int key) {
-	if ((float)(ht->count + 1) / ht->size > ht->max_load_factor)
-		CepRehash(ht);
+bool CepInsert(CepTable* table, int key) {
+	if ((float)(table->count + 1) / table->size > table->max_load_factor)
+		CepRehash(table);
 
-	uint32_t key_hash = get_hash(key, ht->size);
-	Node* cur_node = ht->buckets[key_hash];
+	uint32_t key_hash = get_hash(key, table->size);
+	Node* cur_node = table->buckets[key_hash];
 	
 	while (cur_node) {
 		if (cur_node->key == key) 
@@ -16,16 +16,16 @@ bool CepInsert(CepTable* ht, int key) {
 
 	Node* new_node = (Node*)malloc(sizeof(Node));
 	new_node->key = key;
-	new_node->next = ht->buckets[key_hash];
-	ht->buckets[key_hash] = new_node;
+	new_node->next = table->buckets[key_hash];
+	table->buckets[key_hash] = new_node;
 	
-	++ht->count;
+	++table->count;
 	return true;
 }
 
-bool CepSearch(CepTable* ht, int key) {
-	uint32_t key_hash = get_hash(key, ht->size);
-	Node* cur_node = ht->buckets[key_hash];
+bool CepSearch(CepTable* table, int key) {
+	uint32_t key_hash = get_hash(key, table->size);
+	Node* cur_node = table->buckets[key_hash];
 
 	while (cur_node) {
 		if (cur_node->key == key) 
@@ -37,9 +37,9 @@ bool CepSearch(CepTable* ht, int key) {
 	return false;
 }
 
-bool CepRemove(CepTable* ht, int key) {
-	uint32_t key_hash = get_hash(key, ht->size);
-	Node* cur_node = ht->buckets[key_hash];
+bool CepRemove(CepTable* table, int key) {
+	uint32_t key_hash = get_hash(key, table->size);
+	Node* cur_node = table->buckets[key_hash];
 	Node* prev = NULL;
 
 	while (cur_node) {
@@ -48,11 +48,11 @@ bool CepRemove(CepTable* ht, int key) {
 				prev->next = cur_node->next;
 			} 
 			else {
-				ht->buckets[key_hash] = cur_node->next;
+				table->buckets[key_hash] = cur_node->next;
 			}
 
 			free(cur_node);
-			--ht->count;
+			--table->count;
 
 			return true;
 		}
@@ -64,17 +64,17 @@ bool CepRemove(CepTable* ht, int key) {
 	return false;
 }
 
-void CepRehash(CepTable* ht) {
-	int old_size		= ht->size;
-	Node** old_buckets	= ht->buckets;
+void CepRehash(CepTable* table) {
+	int old_size		= table->size;
+	Node** old_buckets	= table->buckets;
 
-	ht->size 	*= 	2;
-	ht->buckets = 	(Node**)calloc(ht->size, sizeof(Node*));
+	table->size 	*= 	2;
+	table->buckets = 	(Node**)calloc(table->size, sizeof(Node*));
 	
 	for (int i = 0; i < old_size; ++i) {
 		Node* cur_node = old_buckets[i];
 		while (cur_node) {
-			CepInsertKey(ht, cur_node->key);
+			CepInsertKey(table, cur_node->key);
 			cur_node = cur_node->next;
 		}
 
@@ -84,32 +84,32 @@ void CepRehash(CepTable* ht) {
 	free(old_buckets);
 }
 
-void CepInsertKey(CepTable* ht, uint32_t key) {
-	uint32_t key_hash = get_hash(key, ht->size);
+void CepInsertKey(CepTable* table, uint32_t key) {
+	uint32_t key_hash = get_hash(key, table->size);
 	Node* node = (Node*)malloc(sizeof(Node));
 
 	node->key = key;
-	node->next = ht->buckets[key_hash];
-	ht->buckets[key_hash] = node;
+	node->next = table->buckets[key_hash];
+	table->buckets[key_hash] = node;
 }
 
 CepTable* CepTableCtor(int size, float lf) {
-	CepTable* ht = (CepTable*)malloc(sizeof(CepTable));
+	CepTable* table = (CepTable*)malloc(sizeof(CepTable));
 
-	ht->size			= size;
-	ht->count			= 0;
-	ht->max_load_factor	= lf;
-	ht->buckets			= (Node**)calloc(ht->size, sizeof(Node*));
+	table->size			= size;
+	table->count			= 0;
+	table->max_load_factor	= lf;
+	table->buckets			= (Node**)calloc(table->size, sizeof(Node*));
 
-	return ht;
+	return table;
 }
 
-void CepTableDtor(CepTable* ht) {
-	for (int i = 0; i < ht->size; ++i)
-		ClearBucket(ht->buckets[i]);
+void CepTableDtor(CepTable* table) {
+	for (int i = 0; i < table->size; ++i)
+		ClearBucket(table->buckets[i]);
 
-	free(ht->buckets);
-	free(ht);
+	free(table->buckets);
+	free(table);
 }
 
 void ClearBucket(Node* node) {
