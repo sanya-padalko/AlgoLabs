@@ -23,4 +23,4 @@ for name in files:
     plt.ylabel("counts")
     title_str = f"{name}, Variance: {var}"
     plt.title(title_str)
-    plt.savefig("plots/" + name + ".png")
+    plt.savefig("plots/" + name + ".svg")
