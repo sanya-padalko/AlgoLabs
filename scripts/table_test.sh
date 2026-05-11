@@ -2,9 +2,9 @@
 
 mkdir -p table_tests
 
-python3 table_test.py
+python3 scripts_py/table_test.py
 echo "Tests generated"
-gcc table_test.c hash_func.c hash_tables/*.c -o table_test
+gcc -DLOAD_TEST table_test.c hash_func.c hash_tables/*.c -o table_test
 ./table_test
-python3 table_plot_1.py
-python3 table_plot_2.py
+python3 scripts_py/table_plot_1.py
+python3 scripts_py/table_plot_2.py
