@@ -1,4 +1,4 @@
-#include "hash_table_open.h"
+#include "hash_table_lin.h"
 
 bool LinInsert(OpenTable* ht, uint32_t key) {
 	if ((float)(ht->count + 1) / ht->size > ht->max_load_factor)
