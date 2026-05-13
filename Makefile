@@ -16,6 +16,36 @@ unit_test_2h:
 	./test_2h
 	rm -f test_2h
 
+unit_test_lin:
+	gcc -DLOAD_TEST unit_tests/test_lin.c \
+					hash_tables/hash_table_lin.c \
+					hash_tables/hash_table_cep.c \
+					hash_tables/hash_table_open.c \
+					hash_func.c \
+					-o test_lin
+	./test_lin
+	rm -f test_lin
+
+unit_test_sq:
+	gcc -DLOAD_TEST unit_tests/test_sq.c \
+					hash_tables/hash_table_sq.c \
+					hash_tables/hash_table_cep.c \
+					hash_tables/hash_table_open.c \
+					hash_func.c \
+					-o test_sq
+	./test_sq
+	rm -f test_sq
+
+unit_test_kuk:
+	gcc -DLOAD_TEST unit_tests/test_kuk.c \
+					hash_tables/hash_table_kuk.c \
+					hash_tables/hash_table_cep.c \
+					hash_tables/hash_table_open.c \
+					hash_func.c \
+					-o test_kuk
+	./test_kuk
+	rm -f test_kuk
+
 hash_functions:
 	./scripts/test_gen.sh
 	echo "\n ------ MAKE ------ Tests generated\n"

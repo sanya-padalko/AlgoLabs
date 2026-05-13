@@ -7,11 +7,7 @@ bool KukInsert(OpenTable* table, uint32_t key) {
     if ((float)table->count / table->size > table->max_load_factor)
         KukRehash(table);
     
-    if (!DumbKukInsert(table, key)) {
-        KukRehash(table);
-        return DumbKukInsert(table, key);
-    }
-
+    DumbKukInsert(table, key);
     return true;
 }
 
@@ -93,6 +89,7 @@ bool DumbKukInsert(OpenTable* table, uint32_t key) {
         uint32_t h2 = kuk_hash_2(cur_key, table->size);
         if (h1 == h2)
             h2 = (h2 + 1) % table->size;
+
         if (table->slots[h2] == EMP) {
             table->keys[h2]  = cur_key;
             table->slots[h2] = OCC;
@@ -104,7 +101,9 @@ bool DumbKukInsert(OpenTable* table, uint32_t key) {
         table->keys[h2] = cur_key;
         cur_key = old_key;
     }
-    return false;
+
+    KukRehash(table);
+    return DumbKukInsert(table, cur_key);
 }
 
 uint32_t kuk_hash_1(uint32_t key, int size) {
