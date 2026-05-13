@@ -1,9 +1,20 @@
-test_cep:
-	gcc -DLOAD_TEST unit_tests/test_cep.c hash_tables/hash_table_cep.c hash_func.c -o test_cep
+unit_test_cep:
+	gcc -DLOAD_TEST unit_tests/test_cep.c \
+					hash_tables/hash_table_cep.c \
+					hash_func.c \
+					-o test_cep
 	./test_cep
 	rm -f test_cep
 
-
+unit_test_2h:
+	gcc -DLOAD_TEST unit_tests/test_2h.c \
+					hash_tables/hash_table_2h.c \
+					hash_tables/hash_table_cep.c \
+					hash_tables/hash_table_open.c \
+					hash_func.c \
+					-o test_2h
+	./test_2h
+	rm -f test_2h
 
 hash_functions:
 	./scripts/test_gen.sh
