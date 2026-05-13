@@ -1,3 +1,10 @@
+test_cep:
+	gcc -DLOAD_TEST unit_tests/test_cep.c hash_tables/hash_table_cep.c hash_func.c -o test_cep
+	./test_cep
+	rm -f test_cep
+
+
+
 hash_functions:
 	./scripts/test_gen.sh
 	echo "\n ------ MAKE ------ Tests generated\n"
