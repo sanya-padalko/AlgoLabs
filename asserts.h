@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 #ifdef DEBUG
-	#define ASSERT(condition, ...)									\
+	#define MY_ASSERT(condition, ...)									\
 		do {														\
 			if (!(condition)) {										\
 				fprintf(stderr, "ASSERTION FAILED in %s (%s:%d)\n",	\
@@ -15,7 +15,7 @@
 			}														\
 		} while (0)
 #else
-	#define ASSERT(condition, ...)
+	#define MY_ASSERT(condition, ...)
 #endif
 
 #endif

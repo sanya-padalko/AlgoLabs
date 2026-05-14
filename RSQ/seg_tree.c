@@ -10,21 +10,21 @@ static void RecChangeVal	(SegTree* tree, int ind,
 
 int FindSum(SegTree* tree, int q_lt, int q_rt) {
 	TREE_VERIFY(tree);
-	ASSERT(0 <= q_lt && q_rt <= tree->size, "Недопустимые границы отрезка\n");
+	MY_ASSERT(0 <= q_lt && q_rt <= tree->size, "Недопустимые границы отрезка\n");
 
 	return RecFindSum(tree, 0, 0, tree->size, q_lt, q_rt);
 }
 
 void ChangeVal(SegTree* tree, int ind, int val) {
 	TREE_VERIFY(tree);
-	ASSERT(0 <= ind < tree->size, "Неправильный индекс замены значения\n");
+	MY_ASSERT(0 <= ind < tree->size, "Неправильный индекс замены значения\n");
 
 	RecChangeVal(tree, 0, 0, tree->size, ind, val);
 }
 
 static int RecFindSum(SegTree* tree, int ind, int lt, int rt, int q_lt, int q_rt) {
 	TREE_VERIFY(tree);
-	ASSERT(0 <= ind < 2 * tree->size,	"Неправильный индекс вершины\n");
+	MY_ASSERT(0 <= ind < 2 * tree->size,	"Неправильный индекс вершины\n");
 	
 	if (rt <= q_lt || q_rt <= lt)	return NEUTRAL_ELEM;
 
@@ -37,7 +37,7 @@ static int RecFindSum(SegTree* tree, int ind, int lt, int rt, int q_lt, int q_rt
 
 static void RecChangeVal(SegTree* tree, int ind, int lt, int rt, int q_ind, int q_val) {
 	TREE_VERIFY(tree);
-	ASSERT(0 <= ind < 2 * tree->size,	"Неправильный индекс вершины\n");
+	MY_ASSERT(0 <= ind < 2 * tree->size,	"Неправильный индекс вершины\n");
 	
 	if (rt <= ind || ind < lt)	return;
 
@@ -55,11 +55,11 @@ static void RecChangeVal(SegTree* tree, int ind, int lt, int rt, int q_ind, int 
 
 SegTree* SegTreeArrCtor(int size, int* arr) {
 	SegTree* tree = SegTreeCtor(size);
-	ASSERT(tree, "Не удалось создать дерево\n");
+	MY_ASSERT(tree, "Не удалось создать дерево\n");
 
 	TreeNode* nodes = tree->nodes;
 	for (int ind = tree->size - 1, arr_ind = 0; ind < 2 * tree->size; ++ind, ++arr_ind)
-		nodes[ind].sum = arr[arr_ind];
+		nodes[ind].sum = (arr_ind < size ? arr[arr_ind] : 0);
 	
 	for (int ind = tree->size - 2; ind >= 0; --ind)
 		nodes[ind].sum = NodeMerge(&nodes[2 * ind + 1], &nodes[2 * ind + 2]);
@@ -72,11 +72,11 @@ SegTree* SegTreeCtor(int size) {
 	while (pow_size < size) pow_size <<= 1;
 
 	SegTree* tree = (SegTree*)calloc(1, sizeof(SegTree));
-	ASSERT(tree, "CALLOC ERROR: Не удалось создать дерево\n");
+	MY_ASSERT(tree, "CALLOC ERROR: Не удалось создать дерево\n");
 	
 	tree->size	= pow_size;
 	tree->nodes	= (TreeNode*)calloc(2 * pow_size, sizeof(TreeNode));
-	ASSERT(tree->nodes, "CALLOC ERROR: Не удалось создать вершин\n");
+	MY_ASSERT(tree->nodes, "CALLOC ERROR: Не удалось создать вершин\n");
 
 	return tree;
 }

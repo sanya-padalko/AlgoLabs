@@ -19,9 +19,9 @@ typedef struct SegTree {
 
 #ifdef DEBUG
 	#define TREE_VERIFY(tree)									\
-		ASSERT(tree,		"Нулевой указатель на дерево\n");	\
-		ASSERT(tree->size,	"Пустое дерево\n");					\
-		ASSERT(tree->nodes, "Дерево без вершин\n");				
+		MY_ASSERT(tree,		"Нулевой указатель на дерево\n");	\
+		MY_ASSERT(tree->size,	"Пустое дерево\n");					\
+		MY_ASSERT(tree->nodes, "Дерево без вершин\n");				
 #else
 	#define TREE_VERIFY(tree)
 #endif
