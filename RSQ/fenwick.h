@@ -16,13 +16,14 @@ typedef struct Fenwick {
 	FenNode* pref;
 } Fenwick;
 
+#undef TREE_VERIFY
 #ifdef DEBUG
 	#define TREE_VERIFY(tree)										\
 		MY_ASSERT(tree,			"Нулевой указатель на дерево\n");	\
 		MY_ASSERT(tree->size,	"Пустое дерево\n");					\
 		MY_ASSERT(tree->pref, 	"Дерево без элементов\n");				
 #else
-	#define FEN_VERIFY(fen)
+	#define TREE_VERIFY(fen)
 #endif
 
 Fenwick*	FenArrCtor	(int size, int* arr)				;

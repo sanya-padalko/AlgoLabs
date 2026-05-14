@@ -13,3 +13,12 @@ test_fenwick:
 		-DDEBUG
 	./test_fenwick
 	rm -f test_fenwick
+
+calc_rsq:
+	gcc RSQ/fenwick.c		\
+		RSQ/seg_tree.c		\
+		RSQ/tester.c		\
+		-o rsq_calc
+	
+	./rsq_calc
+	rm -f rsq_calc
