@@ -5,7 +5,7 @@ Fenwick* FenArrCtor(int size, int* arr) {
 	TREE_VERIFY(tree);
 
 	for (int ind = 0; ind < size; ++ind)
-		AddVal(tree, ind, arr[ind]);
+		AddVal(tree, ind + 1, arr[ind]);
 	
 	TREE_VERIFY(tree);
 	return tree;
