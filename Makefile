@@ -20,5 +20,6 @@ calc_rsq:
 		RSQ/tester.c		\
 		-o rsq_calc
 	
+	mkdir -p results
 	./rsq_calc
 	rm -f rsq_calc

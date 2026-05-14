@@ -81,7 +81,15 @@ int main() {
 	sum_seg /= test_cnt;
 	sum_fen /= test_cnt;
 
-	printf("\n----------------------------\n");
-	printf("\nResults:\n Fenwick: %7.2lf ms, Segment tree: %7.2lf ms\n", sum_fen, sum_seg);
-	printf("\n----------------------------\n");
+	FILE* res_file = fopen("results/tree_comp.md", "w");
+
+	fprintf(res_file, "## Результаты сравнения Дерева отрезков и Фенвика\n");
+	fprintf(res_file, "| Тип дерева | Среднее затраченное время на 1e6 операций |\n");
+	fprintf(res_file, "| :---: | :---: |\n");
+	fprintf(res_file, "| Фенвик | %7.2lf |\n", sum_fen);
+	fprintf(res_file, "| Дерево отрезков | %7.2lf |\n", sum_seg);
+
+	fclose(res_file);
+
+	printf("Results saved in RSQ/results/tree_comp.md\n");
 }
