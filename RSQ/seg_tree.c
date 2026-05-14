@@ -17,14 +17,14 @@ int FindSum(SegTree* tree, int q_lt, int q_rt) {
 
 void ChangeVal(SegTree* tree, int ind, int val) {
 	TREE_VERIFY(tree);
-	MY_ASSERT(0 <= ind < tree->size, "Неправильный индекс замены значения\n");
+	MY_ASSERT(0 <= ind && ind < tree->size, "Неправильный индекс замены значения\n");
 
 	RecChangeVal(tree, 0, 0, tree->size, ind, val);
 }
 
 static int RecFindSum(SegTree* tree, int ind, int lt, int rt, int q_lt, int q_rt) {
 	TREE_VERIFY(tree);
-	MY_ASSERT(0 <= ind < 2 * tree->size,	"Неправильный индекс вершины\n");
+	MY_ASSERT(0 <= ind && ind < 2 * tree->size,	"Неправильный индекс вершины\n");
 	
 	if (rt <= q_lt || q_rt <= lt)	return NEUTRAL_ELEM;
 
@@ -37,7 +37,7 @@ static int RecFindSum(SegTree* tree, int ind, int lt, int rt, int q_lt, int q_rt
 
 static void RecChangeVal(SegTree* tree, int ind, int lt, int rt, int q_ind, int q_val) {
 	TREE_VERIFY(tree);
-	MY_ASSERT(0 <= ind < 2 * tree->size,	"Неправильный индекс вершины\n");
+	MY_ASSERT(0 <= ind && ind < 2 * tree->size,	"Неправильный индекс вершины\n");
 	
 	if (rt <= ind || ind < lt)	return;
 

@@ -6,7 +6,7 @@
 	ADD(test_change)	\
 
 #define CTEST_IMPLEMENTATION
-#include "../ctest.h"
+#include "../../ctest.h"
 
 TEST(test_find,
 	srand(42);
