@@ -1,4 +1,4 @@
-#ifndef _SPARCE_TABLE_
+#ifndef _SPARSE_TABLE_
 #define _SPARSE_TABLE_
 
 #include <stdio.h>
@@ -31,6 +31,8 @@ SparseN*	ArrNCtor		(int size, int* arr)				;
 
 SparseN*	SparseNCtor		()									;
 SparseLog*	SparseLogCtor	()									;
+void		SparseNDtor		(SparseN* table)					;
+void		SparseLogDtor	(SparseLog* table)					;
 
 void		CalcLog			()									;
 

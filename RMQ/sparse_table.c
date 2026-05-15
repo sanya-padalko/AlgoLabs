@@ -3,7 +3,7 @@
 int lg[MAXN];
 
 int GetMinN(SparseN* table, int lt, int rt) {
-	MY_ASSERT(table,		"Нулевой указатель на массив\n");
+	MY_ASSERT(table,		"Нулевой указатель на Sparse Table\n");
 	MY_ASSERT(0 <= lt,		"Недопустимая левая граница\n");
 	MY_ASSERT(rt < MAXN,	"Недопустимая правая граница\n");
 	MY_ASSERT(lt <= rt, 	"Вырожденный отрезок\n");
@@ -16,7 +16,7 @@ int GetMinN(SparseN* table, int lt, int rt) {
 }
 
 int GetMinLog(SparseLog* table, int lt, int rt) {
-	MY_ASSERT(table,		"Нулевой указатель на массив\n");
+	MY_ASSERT(table,		"Нулевой указатель на Sparse Table\n");
 	MY_ASSERT(0 <= lt,		"Недопустимая левая граница\n");
 	MY_ASSERT(rt < MAXN,	"Недопустимая правая граница\n");
 	MY_ASSERT(lt <= rt, 	"Вырожденный отрезок\n");
@@ -39,6 +39,7 @@ SparseN* ArrNCtor(int size, int* arr) {
 	for (int j = 1; j < MAX_LEVEL; ++j) {
 		for (int i = 0; i < MAXN; ++i) {
 			int nxt = i + (1 << (j - 1));
+			if (nxt >= MAXN) break;
 
 			table->st[i][j].min = MIN(table->st[i][j - 1].min, 
 									  table->st[nxt][j - 1].min);
@@ -59,9 +60,10 @@ SparseLog* ArrLogCtor(int size, int* arr) {
 	for (int i = 1; i < MAX_LEVEL; ++i) {
 		for (int j = 0; j < MAXN; ++j) {
 			int nxt = j + (1 << (i - 1));
+			if (nxt >= MAXN)	break;
 
-			table->st[i][j].min = MIN(table->st[i][j - 1].min, 
-									  table->st[nxt][j - 1].min);
+			table->st[i][j].min = MIN(table->st[i - 1][j].min, 
+									  table->st[i - 1][nxt].min);
 		}
 	}
 
@@ -88,12 +90,36 @@ SparseLog* SparseLogCtor() {
 	SparseLog* table = (SparseLog*)calloc(1, sizeof(SparseLog));
 	MY_ASSERT(table, "calloc не сработал\n");
 
-	for (int i = 0; i < 20; ++i) {
+	for (int i = 0; i < MAX_LEVEL; ++i) {
 		for (int j = 0; j < MAXN; ++j) 
 			table->st[i][j].min = INT_MAX;
 	}
 
 	return table;
+}
+
+void SparseNDtor(SparseN* table) {
+	MY_ASSERT(table, "Нулевой указатель на Sparse Table\n");
+
+	for (int i = 0; i < MAXN; ++i) {
+		for (int j = 0; j < MAX_LEVEL; ++j) {
+			table->st[i][j].min = 0;
+		}
+	}
+
+	free(table);
+}
+
+void SparseLogDtor(SparseLog* table) {
+	MY_ASSERT(table, "Нулевой указатель на Sparse Table\n");
+
+	for (int i = 0; i < MAX_LEVEL; ++i) {
+		for (int j = 0; j < MAXN; ++j) {
+			table->st[i][j].min = 0;
+		}
+	}
+
+	free(table);
 }
 
 void CalcLog() {

@@ -14,6 +14,14 @@ test_fenwick:
 	./test_fenwick
 	rm -f test_fenwick
 
+test_sparse:
+	gcc RMQ/unit-test/sparse_test.c 				\
+		RMQ/sparse_table.c							\
+		-o test_sparse								\
+		-DDEBUG
+	./test_sparse
+	rm -f test_sparse
+
 calc_rsq:
 	gcc RSQ/fenwick.c		\
 		RSQ/seg_tree.c		\
