@@ -31,3 +31,12 @@ calc_rsq:
 	mkdir -p results
 	./rsq_calc
 	rm -f rsq_calc
+
+calc_rmq:
+	gcc RMQ/sparse_table.c	\
+		RMQ/tester.c		\
+		-o rmq_calc
+	
+	mkdir -p results
+	./rmq_calc
+	rm -f rmq_calc
