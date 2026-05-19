@@ -6,7 +6,7 @@ if [[ $# -ne 2 ]] && [[ "$1" = "-g" ]]; then
 	./test-gens/gen-big.sh
 fi
 
-gcc tester.c -o tester
+gcc tester.c src/*.c -o tester -Iinc
 ./tester 9
 cd part9
 python ../plot-gens/part9-plot.py
