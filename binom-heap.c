@@ -31,6 +31,37 @@ void link_binomial(struct Node* node1, struct Node* node2) {
     ++node2->degree;
 } 
 
+static struct Node* merge_root_list(struct Node* head1, struct Node* head2) {
+	struct Node node;
+	struct Node* tail = &node;
+
+	while (head1 && head2) {                    // сливаем корневые списки в один, по возрастанию степеней
+        if (head1->degree < head2->degree) {
+            tail->next = head1;
+            head1 = head1->next;
+        }
+        else {
+            tail->next = head2;
+            head2 = head2->next;
+        }
+        tail = tail->next;
+    }
+
+    while (head1) {
+        tail->next = head1;
+        head1 = head1->next;
+        tail = tail->next;
+    }
+
+    while (head2) {
+        tail->next = head2;
+        head2 = head2->next;
+        tail = tail->next;
+    }
+
+	return node.next;
+}
+
 struct BinomHeap* merge(struct BinomHeap* Heap1, struct BinomHeap* Heap2) {
     if (Heap1 == NULL)
         return Heap2;
@@ -38,38 +69,10 @@ struct BinomHeap* merge(struct BinomHeap* Heap1, struct BinomHeap* Heap2) {
         return Heap1;
     
     struct BinomHeap* Heap = BinomHeap_ctr();
-    Heap->head = Node_ctr(0);
     
-    struct Node* curH	= Heap->head;
-    struct Node* curH1	= Heap1->head;
-    struct Node* curH2	= Heap2->head;
+    struct Node* curH = merge_root_list(Heap1->head, Heap2->head);
 
-    while (curH1 && curH2) {                    // сливаем корневые списки в один, по возрастанию степеней
-        if (curH1->degree < curH2->degree) {
-            curH->next = curH1;
-            curH1 = curH1->next;
-        }
-        else {
-            curH->next = curH2;
-            curH2 = curH2->next;
-        }
-        curH = curH->next;
-    }
-
-    while (curH1) {
-        curH->next = curH1;
-        curH1 = curH1->next;
-        curH = curH->next;
-    }
-
-    while (curH2) {
-        curH->next = curH2;
-        curH2 = curH2->next;
-        curH = curH->next;
-    }
-
-    Heap->head = Heap->head->next;
-    curH = Heap->head;
+	Heap->head = curH;
     struct Node* prev = NULL;
 
     while (curH && curH->next) {
