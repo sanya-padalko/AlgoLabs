@@ -6,6 +6,8 @@
 #include <time.h>
 #include "small-sortings.h"
 
+int (*hoar_pivot)(uint32_t*, int, int) = pivot_central;
+
 int		pivot_central		(uint32_t* arr, int l, int r)				;
 int		pivot_mediana3		(uint32_t* arr, int l, int r)				;
 int		pivot_random		(uint32_t* arr, int l, int r)				;

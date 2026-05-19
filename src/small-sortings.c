@@ -5,6 +5,8 @@ void swap(void* a, void* b, int size) {
     memcpy(c, b, size);
     memcpy(b, a, size);
     memcpy(a, c, size);
+
+	free(c);
 }
 
 void Insert_sort(uint32_t* arr, int size) {

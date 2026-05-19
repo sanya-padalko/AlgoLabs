@@ -143,8 +143,6 @@ void Quick_sort(uint32_t* arr, int l, int r,
     Quick_sort(arr, gr + 1, r, pivot_selector, partition);
 }
 
-int (*hoar_pivot)(uint32_t*, int, int) = pivot_central;
-
 void Hoar_sort(uint32_t* arr, int size)  {
     left_eq = right_eq = NULL;
     Quick_sort(arr, 0, size - 1, hoar_pivot, hoar_part);
