@@ -48,7 +48,7 @@ void run_int_tests() {
         printf("%-10s | Time: %.4f s\n", names[f], (double)(end - start) / CLOCKS_PER_SEC);
         
         char filename[50];
-        sprintf(filename, "results/%s.csv", names[f]);
+        snprintf(filename, sizeof(filename), "results/%s.csv", names[f]);
         save_to_csv(filename, cnt);
     }
 
@@ -79,7 +79,7 @@ void run_float_tests() {
         printf("%-10s | Time: %.4f s\n", names[f], (double)(end - start) / CLOCKS_PER_SEC);
         
         char filename[50];
-        sprintf(filename, "results/%s.csv", names[f]);
+        snprintf(filename, sizeof(filename), "results/%s.csv", names[f]);
         save_to_csv(filename, cnt);
     }
     free(data);
@@ -109,7 +109,7 @@ void run_string_tests() {
         printf("%-10s | Time: %.4f s\n", names[f], (double)(end - start) / CLOCKS_PER_SEC);
         
         char filename[50];
-        sprintf(filename, "results/%s.csv", names[f]);
+        snprintf(filename, sizeof(filename), "results/%s.csv", names[f]);
         save_to_csv(filename, cnt);
     }
     free(data);
