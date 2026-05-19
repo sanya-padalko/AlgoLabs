@@ -7,12 +7,20 @@ void swap(void* a, void* b, size_t size) {
     memcpy(b, c, size);
 }
 
+static int GetLeft(int ind) {
+	return 2 * ind + 1;
+}
+
+static int GetRight(int ind) {
+	return 2 * ind + 2;
+}
+
 void sift_down(int *arr, int n, int i) {
     int cur = i;
     while (1) {
         cur = i;
-        int left = 2 * cur + 1;
-        int right = 2 * cur + 2;
+        int left = GetLeft(cur);
+        int right = GetRight(cur);
         if (left < n && arr[left] < arr[cur])
             cur = left;
         if (right < n && arr[right] < arr[cur])
