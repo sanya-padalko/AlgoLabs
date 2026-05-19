@@ -2,6 +2,7 @@
 #define __NOT_COMP_H_
 
 #include <string.h>
+#include <stdlib.h>
 
 #define MAX 256
 
