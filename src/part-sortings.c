@@ -1,16 +1,10 @@
-#ifndef __PART_SORTINGS_H_
-#define __PART_SORTINGS_H_
+#include "part-sortings.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-#include "small-sortings.h"
-
-static int pivot_central(unsigned int* arr, int l, int r) {
+int pivot_central(uint32_t* arr, int l, int r) {
     return (l + r) / 2;
 }
 
-static int pivot_mediana3(unsigned int* arr, int l, int r) {
+int pivot_mediana3(uint32_t* arr, int l, int r) {
     int mid = (l + r) / 2;
 
     if (arr[l] > arr[mid])
@@ -25,7 +19,7 @@ static int pivot_mediana3(unsigned int* arr, int l, int r) {
     return mid;
 }
 
-static int pivot_random(unsigned int* arr, int l, int r) {
+int pivot_random(uint32_t* arr, int l, int r) {
     if ((r - l + 1) <= 0)
         return l;
 
@@ -35,7 +29,7 @@ static int pivot_random(unsigned int* arr, int l, int r) {
     return l + rand_num;
 }
 
-static int pivot_random_med(unsigned int* arr, int l, int r) {
+int pivot_random_med(uint32_t* arr, int l, int r) {
     if ((r - l + 1) <= 0)
         return l;
 
@@ -56,10 +50,10 @@ static int pivot_random_med(unsigned int* arr, int l, int r) {
     return rand2;
 }
 
-static int hoar_part(unsigned int* arr, int l, int r, int pivot_ind) {
+int hoar_part(uint32_t* arr, int l, int r, int pivot_ind) {
     int i = l;
     int j = r;
-    unsigned int pivot = arr[pivot_ind];
+    uint32_t pivot = arr[pivot_ind];
     while (1) {
         while (i <= r && arr[i] < pivot)
             ++i;
@@ -75,8 +69,8 @@ static int hoar_part(unsigned int* arr, int l, int r, int pivot_ind) {
     }
 }
 
-static int lomuto_part(unsigned int* arr, int l, int r, int pivot_ind) {
-    unsigned int pivot = arr[pivot_ind];
+int lomuto_part(uint32_t* arr, int l, int r, int pivot_ind) {
+    uint32_t pivot = arr[pivot_ind];
     swap(arr + r, arr + pivot_ind, sizeof(int));
 
     int ind = l - 1;
@@ -93,11 +87,11 @@ static int lomuto_part(unsigned int* arr, int l, int r, int pivot_ind) {
     return ind + 1;
 }
 
-unsigned int *left_eq = NULL;
-unsigned int *right_eq = NULL;
+uint32_t *left_eq = NULL;
+uint32_t *right_eq = NULL;
 
-static int thick_part(unsigned int* arr, int l, int r, int pivot_ind) {
-    unsigned int pivot = arr[pivot_ind];
+int thick_part(uint32_t* arr, int l, int r, int pivot_ind) {
+    uint32_t pivot = arr[pivot_ind];
     int lq = l;
     int eq = l;
     int rq = r;
@@ -123,9 +117,9 @@ static int thick_part(unsigned int* arr, int l, int r, int pivot_ind) {
     return lq;
 }
 
-static void Quick_sort(unsigned int* arr, int l, int r, 
-                            int (*pivot_selector)(unsigned int*, int, int), 
-                            int (*partition)(unsigned int*, int, int, int)) {
+void Quick_sort(uint32_t* arr, int l, int r, 
+                            int (*pivot_selector)(uint32_t*, int, int), 
+                            int (*partition)(uint32_t*, int, int, int)) {
     if (l >= r)
         return;
 
@@ -149,24 +143,20 @@ static void Quick_sort(unsigned int* arr, int l, int r,
     Quick_sort(arr, gr + 1, r, pivot_selector, partition);
 }
 
-int (*hoar_pivot)(unsigned int*, int, int) = pivot_central;
+int (*hoar_pivot)(uint32_t*, int, int) = pivot_central;
 
-static void Hoar_sort(unsigned int* arr, int size)  {
+void Hoar_sort(uint32_t* arr, int size)  {
     left_eq = right_eq = NULL;
     Quick_sort(arr, 0, size - 1, hoar_pivot, hoar_part);
 }
 
-static void Lomuto_sort(unsigned int* arr, int size) {
+void Lomuto_sort(uint32_t* arr, int size) {
     left_eq = right_eq = NULL;
     Quick_sort(arr, 0, size - 1, pivot_central, lomuto_part);
-}
-
-static void Thick_sort(unsigned int* arr, int size) {
-    left_eq = (unsigned int*)calloc(1, sizeof(int));
-    right_eq = (unsigned int*)calloc(1, sizeof(int));
+}void Thick_sort(uint32_t* arr, int size) {
+    left_eq = (uint32_t*)calloc(1, sizeof(int));
+    right_eq = (uint32_t*)calloc(1, sizeof(int));
     Quick_sort(arr, 0, size - 1, pivot_central, thick_part);
     free(left_eq);
     free(right_eq);
 }
-
-#endif

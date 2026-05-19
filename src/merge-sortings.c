@@ -1,9 +1,6 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "merge-sortings.h"
 
-unsigned int* add_arr = NULL;
-
-static void MergeSeg(unsigned int* arr, int l, int m, int r) {
+void MergeSeg(uint32_t* arr, int l, int m, int r) {
     int i1 = l;
     int i2 = m + 1;
     int j = l;
@@ -28,7 +25,7 @@ static void MergeSeg(unsigned int* arr, int l, int m, int r) {
         arr[i] = add_arr[i];
 }
 
-static void RecMergeSort(unsigned int* arr, int l, int r) {
+void RecMergeSort(uint32_t* arr, int l, int r) {
     if (r <= l)
         return;
 
@@ -39,14 +36,14 @@ static void RecMergeSort(unsigned int* arr, int l, int r) {
     MergeSeg(arr, l, m, r);
 }
 
-static void GoRecMerge_sort(unsigned int* arr, int size) { // go first
-    add_arr = (unsigned int*)calloc(1e6, sizeof(int));
+void GoRecMerge_sort(uint32_t* arr, int size) { // go first
+    add_arr = (uint32_t*)calloc(1e6, sizeof(int));
     RecMergeSort(arr, 0, size - 1);
     free(add_arr);
 }
 
-static void IterMerge_sort(unsigned int* arr, int size) { // go last
-    add_arr = (unsigned int*)calloc(1e6, sizeof(int));
+void IterMerge_sort(uint32_t* arr, int size) { // go last
+    add_arr = (uint32_t*)calloc(1e6, sizeof(int));
     for (int len = 1; len < size; len *= 2) {
         for (int l = 0; l < size - len; l += 2 * len) {
             int m = l + len - 1;

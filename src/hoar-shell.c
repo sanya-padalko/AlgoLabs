@@ -1,14 +1,6 @@
-#ifndef __HOAR_SHELL_H_
-#define __HOAR_SHELL_H_
+#include "hoar-shell.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include "small-sortings.h"
-#include "part-sortings.h"
-
-int block_size = 1;
-
-static void Hoar_Shell_sort(unsigned int* arr, int l, int r, 
+void Hoar_Shell_sort(unsigned int* arr, int l, int r, 
                             int (*pivot_selector)(unsigned int*, int, int), 
                             int (*partition)(unsigned int*, int, int, int)) {
     if (l >= r) 
@@ -26,8 +18,6 @@ static void Hoar_Shell_sort(unsigned int* arr, int l, int r,
     Hoar_Shell_sort(arr, gr + 1, r, pivot_selector, partition);
 }
 
-static void HoarShell_sort(unsigned int* arr, int size) {
+void HoarShell_sort(unsigned int* arr, int size) {
     Hoar_Shell_sort(arr, 0, size - 1, pivot_central, hoar_part);
 }
-
-#endif

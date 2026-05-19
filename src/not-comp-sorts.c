@@ -1,11 +1,6 @@
-#ifndef __NOT_COMP_H_
-#define __NOT_COMP_H_
+#include "not-comp-sorts.h"
 
-#include <string.h>
-
-#define MAX 256
-
-static void LSD_sort(unsigned int* arr, int size) {
+void LSD_sort(unsigned int* arr, int size) {
     unsigned int* res = (unsigned int*)calloc(size, sizeof(int));
     for (unsigned int mask = 0xff, shift = 0; mask > 0; mask <<= 8, shift += 8) {
         unsigned int pref_cnt[MAX];
@@ -23,7 +18,7 @@ static void LSD_sort(unsigned int* arr, int size) {
     }
 }
 
-static void RecMSD_sort(unsigned int* arr, int l, int r, unsigned int mask, int shift) {
+void RecMSD_sort(unsigned int* arr, int l, int r, unsigned int mask, int shift) {
     if (l >= r || shift < 0)
         return;
 
@@ -59,8 +54,6 @@ static void RecMSD_sort(unsigned int* arr, int l, int r, unsigned int mask, int 
         RecMSD_sort(arr, l + pref_cnt[i - 1], l + pref_cnt[i] - 1, mask, shift);
 }
 
-static void MSD_sort(unsigned int* arr, int size) {
+void MSD_sort(unsigned int* arr, int size) {
     RecMSD_sort(arr, 0, size - 1, 0xff000000, 24);
 }
-
-#endif
