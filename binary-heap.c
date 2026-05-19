@@ -5,6 +5,8 @@ void swap(void* a, void* b, size_t size) {
     memcpy(c, a, size);
     memcpy(a, b, size);
     memcpy(b, c, size);
+
+	free(c);
 }
 
 static int GetLeft(int ind) {

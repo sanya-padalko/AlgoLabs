@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <limits.h>
 
 struct Node {
     int value;

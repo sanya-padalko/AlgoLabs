@@ -112,7 +112,7 @@ struct BinomHeap* build_binom_heap(int* arr, int cnt) {
 }
 
 struct Node* extract_min(struct BinomHeap** Heap) {
-    int min = 2147483647;
+    int min = INT_MAX;
     struct Node* curMin = NULL;
     struct Node* beforeMin = NULL;
     struct Node* cur = (*Heap)->head;
