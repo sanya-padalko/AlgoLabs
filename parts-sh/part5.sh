@@ -11,3 +11,5 @@ gcc tester.c src/*.c -o tester -Iinc
 cd part5
 python ../plot-gens/part5-plot.py
 cd ..
+
+find "part5" -maxdepth 1 -type f ! -iname "*.png" -delete

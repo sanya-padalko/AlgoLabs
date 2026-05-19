@@ -13,3 +13,5 @@ cd part4
 python ../plot-gens/part4-plot.py
 python ../plot-gens/part4-dub-plot.py
 cd ..
+
+find "part4" -maxdepth 1 -type f ! -iname "*.png" -delete
