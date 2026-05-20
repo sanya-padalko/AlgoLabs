@@ -84,11 +84,11 @@ void load_lin_test() {
 	fprintf(stderr, "Linear testing start...\n");
 	FILE* res_file = fopen("hash_table_res/lin", "w");
 	for (float cur_lf = 0.4; cur_lf <= 0.8; cur_lf += 0.01) {
-		OpenTable* table = OpenTableCtor(4, cur_lf);
+		OpenTable* table = LinTableCtor(4, cur_lf);
 
 		double start_time = GetTime();
 		for (int i = 0; i < 1e6; ++i)
-			LinInsert(table, test_arr[i]);
+			OpenInsert(table, test_arr[i]);
 
 		double end_time = GetTime();
 
@@ -105,11 +105,11 @@ void load_sq_test() {
 	fprintf(stderr, "Square testing start...\n");
 	FILE* res_file = fopen("hash_table_res/sq", "w");
 	for (float cur_lf = 0.4; cur_lf <= 0.8; cur_lf += 0.01) {
-		OpenTable* table = OpenTableCtor(4, cur_lf);
+		OpenTable* table = SqTableCtor(4, cur_lf);
 
 		double start_time = GetTime();
 		for (int i = 0; i < 1e6; ++i)
-			SqInsert(table, test_arr[i]);
+			OpenInsert(table, test_arr[i]);
 
 		double end_time = GetTime();
 

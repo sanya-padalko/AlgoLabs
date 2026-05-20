@@ -16,9 +16,17 @@ typedef struct {
 	int			size;
 	int			count;
 	float		max_load_factor;
+	uint32_t	(*probe)(uint32_t, int, uint32_t);
 } OpenTable;
 
-OpenTable*	OpenTableCtor	(int size, float lf)		;
-void		OpenTableDtor	(OpenTable* table)			;
+bool		OpenInsert		(OpenTable* table, uint32_t key)	;
+void		OpenRehash		(OpenTable* table)					;
+void		OpenInsertKey	(OpenTable* table, uint32_t key)	;
+
+bool		OpenSearch		(OpenTable* table, uint32_t key)	;
+bool		OpenRemove		(OpenTable* table, uint32_t key)	;
+
+OpenTable*	OpenTableCtor	(int size, float lf)				;
+void		OpenTableDtor	(OpenTable* table)					;
 
 #endif

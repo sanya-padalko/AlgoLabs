@@ -146,7 +146,7 @@ void test_lin(int type) {
         res_file = fopen("table_tests/res2_lin", "w");
 
     for (int size = 10000; size <= 1e6; size += 1e4) {
-        OpenTable* ht = OpenTableCtor(2, load_fact);
+        OpenTable* ht = LinTableCtor(2, load_fact);
 
         FILE* test_file;
         if (type == 1)
@@ -161,11 +161,11 @@ void test_lin(int type) {
             fscanf(test_file, "%c %u", &type, &key);
 
             if (type == 'i')
-                LinInsert(ht, key);
+                OpenInsert(ht, key);
             else if (type == 's')
-                LinSearch(ht, key);
+                OpenSearch(ht, key);
             else
-                LinRemove(ht, key);
+                OpenRemove(ht, key);
         }
         double end_time = GetTime();
 
@@ -173,7 +173,7 @@ void test_lin(int type) {
 
         fclose(test_file);
         fprintf(res_file, "%lg\n", end_time - start_time);
-        free(ht);
+        OpenTableDtor(ht);
     }
     fprintf(stderr, "\n");
 }
@@ -186,7 +186,7 @@ void test_sq(int type) {
         res_file = fopen("table_tests/res2_sq", "w");
 
     for (int size = 10000; size <= 1e6; size += 1e4) {
-        OpenTable* ht = OpenTableCtor(2, load_fact);
+        OpenTable* ht = SqTableCtor(2, load_fact);
 
         FILE* test_file;
         if (type == 1)
@@ -201,11 +201,11 @@ void test_sq(int type) {
             fscanf(test_file, "%c %u", &type, &key);
 
             if (type == 'i')
-                SqInsert(ht, key);
+                OpenInsert(ht, key);
             else if (type == 's')
-                SqSearch(ht, key);
+                OpenSearch(ht, key);
             else
-                SqRemove(ht, key);
+                OpenRemove(ht, key);
         }
         double end_time = GetTime();
 
@@ -213,7 +213,7 @@ void test_sq(int type) {
 
         fclose(test_file);
         fprintf(res_file, "%lg\n", end_time - start_time);
-        free(ht);
+        OpenTableDtor(ht);
     }
     fprintf(stderr, "\n");
 }

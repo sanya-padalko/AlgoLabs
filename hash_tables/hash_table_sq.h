@@ -3,11 +3,8 @@
 
 #include "hash_table_open.h"
 
-bool	SqInsert	(OpenTable* table, uint32_t key)	;
-bool	SqSearch	(OpenTable* table, uint32_t key)	;
-bool	SqRemove	(OpenTable* table, uint32_t key)	;
+uint32_t 	square_probe	(uint32_t last_hash, int step_ind, int size);
 
-void	SqRehash	(OpenTable* table)					;
-void	SqInsertKey	(OpenTable* table, uint32_t key)	;
+OpenTable*	SqTableCtor		(int size, float lf)						;
 
 #endif
