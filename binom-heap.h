@@ -11,7 +11,7 @@ struct Node {
     struct Node* parent;
     struct Node* child;
     struct Node* next;
-    int degree;
+    uint32_t degree;
 };
 
 struct BinomHeap {
