@@ -16,6 +16,8 @@ static void Update(AVLnode* node) {
 }
 
 static void NodeDtor(AVLnode* node) {
+	if (!node)	return;
+	
 	node->val = node->height = 0;
 	node->left = node->right = NULL;
 

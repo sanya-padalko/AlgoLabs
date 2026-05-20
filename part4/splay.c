@@ -1,6 +1,8 @@
 #include "splay.h"
 
 static void NodeDtor(SplayNode* node) {
+	if (!node)	return;
+	
 	node->val = 0;
 	node->left = node->right = NULL;
 

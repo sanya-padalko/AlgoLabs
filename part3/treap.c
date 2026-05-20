@@ -1,6 +1,8 @@
 #include "treap.h"
 
 static void DDnodeDtor(DDnode* node) {
+	if (!node)	return;
+	
 	node->val = node->prior = 0;
 	node->left = node->right = NULL;
 
