@@ -16,6 +16,8 @@ void LSD_sort(unsigned int* arr, int size) {
 
         memcpy(arr, res, sizeof(int) * size);
     }
+	
+	free(res);
 }
 
 void RecMSD_sort(unsigned int* arr, int l, int r, unsigned int mask, int shift) {

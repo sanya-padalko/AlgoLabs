@@ -1,12 +1,12 @@
 #include "small-sortings.h"
 
-void swap(void* a, void* b, int size) {
-    void* c = malloc(1 * size);
-    memcpy(c, b, size);
-    memcpy(b, a, size);
-    memcpy(a, c, size);
+void swap(void* arg1, void* arg2, int size) {
+    void* add = malloc(1 * size);
+    memcpy(add, arg2, size);
+    memcpy(arg2, arg1, size);
+    memcpy(arg1, add, size);
 
-	free(c);
+	free(add);
 }
 
 void Insert_sort(uint32_t* arr, int size) {

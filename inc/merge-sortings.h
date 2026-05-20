@@ -3,9 +3,9 @@
 
 uint32_t* add_arr = NULL;
 
-void		MergeSeg		(uint32_t* arr, int l, int m, int r)	;
+void		MergeSeg		(uint32_t* arr, int lt, int mid, int rt);
 
-static void	RecMergeSort	(uint32_t* arr, int l, int r)			;
+static void	RecMergeSort	(uint32_t* arr, int lt, int rt)			;
 
 void		GoRecMerge_sort	(uint32_t* arr, int size)				;
 

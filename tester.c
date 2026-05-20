@@ -1,5 +1,6 @@
 #include "testing.h"
-#include "string.h"
+#include <string.h>
+#include <stdlib.h>
 #include "small-sortings.h"
 #include "heap-sortings.h"
 #include "merge-sortings.h"
@@ -149,6 +150,8 @@ void Part10() { // best sortings of all parts
 }
 
 int main(int argc, char* argv[]) {
+	srand(42);
+
     int part_number = 0;
     if (argc > 1)
         part_number = argv[1][0] - '0';

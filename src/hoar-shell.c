@@ -1,21 +1,21 @@
 #include "hoar-shell.h"
 
-void Hoar_Shell_sort(unsigned int* arr, int l, int r, 
+void Hoar_Shell_sort(unsigned int* arr, int lt, int rt, 
                             int (*pivot_selector)(unsigned int*, int, int), 
                             int (*partition)(unsigned int*, int, int, int)) {
-    if (l >= r) 
+    if (lt >= rt) 
         return;
 
-    if ((r - l + 1) <= block_size) {
-        Shell_sort(arr + l, r - l + 1);
+    if ((rt - lt + 1) <= block_size) {
+        Shell_sort(arr + lt, rt - lt + 1);
         return;
     }
 
-    int pivot = pivot_selector(arr, l, r);
-    int gr = partition(arr, l, r, pivot);
+    int pivot = pivot_selector(arr, lt, rt);
+    int gr = partition(arr, lt, rt, pivot);
 
-    Hoar_Shell_sort(arr, l, gr, pivot_selector, partition);
-    Hoar_Shell_sort(arr, gr + 1, r, pivot_selector, partition);
+    Hoar_Shell_sort(arr, lt, gr, pivot_selector, partition);
+    Hoar_Shell_sort(arr, gr + 1, rt, pivot_selector, partition);
 }
 
 void HoarShell_sort(unsigned int* arr, int size) {

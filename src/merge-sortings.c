@@ -1,16 +1,16 @@
 #include "merge-sortings.h"
 
-void MergeSeg(uint32_t* arr, int l, int m, int r) {
-    int i1 = l;
-    int i2 = m + 1;
-    int j = l;
+void MergeSeg(uint32_t* arr, int lt, int mid, int rt) {
+    int i1 = lt;
+    int i2 = mid + 1;
+    int j = lt;
 
-    while (i1 <= m || i2 <= r) {
-        if (i1 > m) {
+    while (i1 <= mid || i2 <= rt) {
+        if (i1 > mid) {
             add_arr[j++] = arr[i2++];
             continue;
         }
-        if (i2 > r) {
+        if (i2 > rt) {
             add_arr[j++] = arr[i1++];
             continue;
         }
@@ -21,37 +21,37 @@ void MergeSeg(uint32_t* arr, int l, int m, int r) {
             add_arr[j++] = arr[i2++];
     }
 
-    for (int i = l; i <= r; ++i)
+    for (int i = lt; i <= rt; ++i)
         arr[i] = add_arr[i];
 }
 
-void RecMergeSort(uint32_t* arr, int l, int r) {
-    if (r <= l)
+void RecMergeSort(uint32_t* arr, int lt, int rt) {
+    if (rt <= lt)
         return;
 
-    int m = (r + l) / 2;
-    RecMergeSort(arr, l, m);
-    RecMergeSort(arr, m + 1, r);
+    int mid = (rt + lt) / 2;
+    RecMergeSort(arr, lt, mid);
+    RecMergeSort(arr, mid + 1, rt);
 
-    MergeSeg(arr, l, m, r);
+    MergeSeg(arr, lt, mid, rt);
 }
 
 void GoRecMerge_sort(uint32_t* arr, int size) { // go first
-    add_arr = (uint32_t*)calloc(1e6, sizeof(int));
+    add_arr = (uint32_t*)calloc(size, sizeof(int));
     RecMergeSort(arr, 0, size - 1);
     free(add_arr);
 }
 
 void IterMerge_sort(uint32_t* arr, int size) { // go last
-    add_arr = (uint32_t*)calloc(1e6, sizeof(int));
+    add_arr = (uint32_t*)calloc(size, sizeof(int));
     for (int len = 1; len < size; len *= 2) {
-        for (int l = 0; l < size - len; l += 2 * len) {
-            int m = l + len - 1;
-            int r = l + 2 * len - 1;
-            if (r >= size)
-                r = size - 1;
+        for (int lt = 0; lt < size - len; lt += 2 * len) {
+            int mid = lt + len - 1;
+            int rt = lt + 2 * len - 1;
+            if (rt >= size)
+                rt = size - 1;
 
-            MergeSeg(arr, l, m, r);
+            MergeSeg(arr, lt, mid, rt);
         }
     }
 

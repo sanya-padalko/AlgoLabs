@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 void	swap				(void* a, void* b, int size)	;
 

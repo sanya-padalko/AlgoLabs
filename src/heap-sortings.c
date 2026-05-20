@@ -1,22 +1,22 @@
 #include "heap-sortings.h"
 
-int get_parent(int i) {
-    return (i - 1) / K_HEAP;
+int get_parent(int ind) {
+    return (ind - 1) / K_HEAP;
 }
 
-int get_child(int i, int j) {
-    return i * K_HEAP + j + 1;
+int get_child(int node_ind, int ch_ind) {
+    return node_ind * K_HEAP + ch_ind + 1;
 }
 
-void sift_down(uint32_t *arr, int size, int i) {
-    uint32_t val = arr[i];
-    int ind = i;
+void sift_down(uint32_t *arr, int size, int el_ind) {
+    uint32_t val = arr[el_ind];
+    int ind = el_ind;
     
     while (get_child(ind, 0) < size) {
         int nxt = get_child(ind, 0);
         
-        for (int j = 1; j < K_HEAP; ++j) {
-            int cur = get_child(ind, j);
+        for (int cur_ch = 1; cur_ch < K_HEAP; ++cur_ch) {
+            int cur = get_child(ind, cur_ch);
             if (cur >= size)
                 break;
 
@@ -31,7 +31,7 @@ void sift_down(uint32_t *arr, int size, int i) {
         ind = nxt;
     }
     
-    while (ind > i) {
+    while (ind > el_ind) {
         int parent = get_parent(ind);
         if (val <= arr[parent]) 
             break;
@@ -44,14 +44,14 @@ void sift_down(uint32_t *arr, int size, int i) {
 }
 
 void Bottom_up_heap_sort(uint32_t* arr, int size) {
-    for (int i = get_parent(size - 1); i >= 0; --i)
-        sift_down(arr, size, i);
+    for (int ind = get_parent(size - 1); ind >= 0; --ind)
+        sift_down(arr, size, ind);
     
-    for (int i = size - 1; i > 0; --i) {
+    for (int ind = size - 1; ind > 0; --ind) {
         uint32_t temp = arr[0];
-        arr[0] = arr[i];
-        arr[i] = temp;
+        arr[0] = arr[ind];
+        arr[ind] = temp;
         
-        sift_down(arr, i, 0);
+        sift_down(arr, ind, 0);
     }
 }

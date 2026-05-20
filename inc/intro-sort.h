@@ -12,7 +12,7 @@ int max_deep = 1;
 
 int get_log(int n);
 
-void	RecIntro_sort	(uint32_t* arr, int l, int r, 
+void	RecIntro_sort	(uint32_t* arr, int lt, int rt, 
                             int (*pivot_selector)(uint32_t*, int, int), 
                             int (*partition)(uint32_t*, int, int, int), int deep)	;
 

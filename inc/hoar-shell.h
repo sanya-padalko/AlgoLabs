@@ -8,7 +8,7 @@
 
 int block_size = 1;
 
-void Hoar_Shell_sort(uint32_t* arr, int l, int r, 
+void Hoar_Shell_sort(uint32_t* arr, int lt, int rt, 
                         int (*pivot_selector)(uint32_t*, int, int), 
                         int (*partition)(uint32_t*, int, int, int))	;
 

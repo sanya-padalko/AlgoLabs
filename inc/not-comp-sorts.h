@@ -6,10 +6,10 @@
 
 #define MAX 256
 
-void	LSD_sort	(unsigned int* arr, int size)									;
+void	LSD_sort	(unsigned int* arr, int size)										;
 
-void	RecMSD_sort	(unsigned int* arr, int l, int r, unsigned int mask, int shift)	;
+void	RecMSD_sort	(unsigned int* arr, int lt, int rt, unsigned int mask, int shift)	;
 
-void	MSD_sort	(unsigned int* arr, int size)									;
+void	MSD_sort	(unsigned int* arr, int size)										;
 
 #endif

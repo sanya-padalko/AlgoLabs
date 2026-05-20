@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int		comp			(void const *a, void const *b)	;
+int		comp			(void const *arg1, void const *arg2)	;
 
-void	BaseQuick_sort	(uint32_t* arr, int size)		;
+void	BaseQuick_sort	(uint32_t* arr, int size)				;
 
 #endif
