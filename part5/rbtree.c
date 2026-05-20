@@ -13,7 +13,6 @@ static void NodeDtor(RBnode* node) {
 	free(node);
 }
 
-
 static RBnode* LeftRotate(RBnode* root, RBnode* x) {
 	RBnode* y = GetRight(x);
 
