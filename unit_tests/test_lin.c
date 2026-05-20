@@ -9,46 +9,46 @@
 #include "../ctest.h"
 
 TEST(test_insert_search,
-	OpenTable* table = OpenTableCtor(4, 0.75f);
+	OpenTable* table = LinTableCtor(4, 0.75f);
 
 	for (int i = 0; i < 10000; ++i)
-		LinInsert(table, i);
+		OpenInsert(table, i);
 	
 	for (int i = 0; i < 20000; ++i) {
 		bool predict_res = (i < 10000);
-		ASSERT_EQ_MSG(predict_res, LinSearch(table, i), "Searching of key %d went wrong", i);
+		ASSERT_EQ_MSG(predict_res, OpenSearch(table, i), "Searching of key %d went wrong", i);
 	}
 
 	OpenTableDtor(table);
 )
 
 TEST(test_remove,
-	OpenTable* table = OpenTableCtor(4, 0.75f);
+	OpenTable* table = LinTableCtor(4, 0.75f);
 	
 	for (int i = 0; i < 10000; ++i)
-		LinInsert(table, i);
+		OpenInsert(table, i);
 	
 	for (int i = 0; i < 10000; i += 2)
-		LinRemove(table, i);
+		OpenRemove(table, i);
 
 	for (int i = 0; i < 10000; ++i) {
 		if (i % 2 == 0)
-			ASSERT_EQ_MSG(false, LinSearch(table, i), "Key %d should be removed", i);
+			ASSERT_EQ_MSG(false, OpenSearch(table, i), "Key %d should be removed", i);
 		else 
-			ASSERT_EQ_MSG(true, LinSearch(table, i), "Key %d shouldn't be removed", i);
+			ASSERT_EQ_MSG(true, OpenSearch(table, i), "Key %d shouldn't be removed", i);
 	}
 	
 	OpenTableDtor(table);
 )
 
 TEST(test_collisions,
-	OpenTable* table = OpenTableCtor(4, 0.75f);
+	OpenTable* table = LinTableCtor(4, 0.75f);
 	
 	for (int i = 0; i < 10000; ++i)
-		LinInsert(table, i);
+		OpenInsert(table, i);
 	
 	for (int i = 0; i < 10000; ++i)
-		ASSERT_EQ_MSG(true, LinSearch(table, i), "There is collision on key %d", i);
+		ASSERT_EQ_MSG(true, OpenSearch(table, i), "There is collision on key %d", i);
 
 	OpenTableDtor(table);
 )

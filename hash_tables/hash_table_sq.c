@@ -1,6 +1,6 @@
 #include "hash_table_sq.h"
 
-uint32_t square_probe(uint32_t last_hash, int step_ind, int size) {
+uint32_t square_probe(uint32_t last_hash, int step_ind, uint32_t size) {
 	return (last_hash + step_ind * step_ind) % size;
 }
 
