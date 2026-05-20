@@ -25,7 +25,6 @@ DDpair		Split		(DDnode* node, int val)			;
 DDnode*		Merge		(DDnode* node1, DDnode* node2)	;
 
 DDnode*		DDnodeCtor	(int val)						;
-void		DDnodeDtor	(DDnode* node)					;
 DDpair		DDpairCtor	(DDnode* first, DDnode* second)	;
 
 DDnode*		GetLeft		(DDnode* node)					;

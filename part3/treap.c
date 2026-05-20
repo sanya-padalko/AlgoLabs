@@ -1,5 +1,12 @@
 #include "treap.h"
 
+static void DDnodeDtor(DDnode* node) {
+	node->val = node->prior = 0;
+	node->left = node->right = NULL;
+
+	free(node);
+}
+
 DDnode* Insert(DDnode* node, int val) {
 	if (Check(&node, val))	return node;
 	
@@ -77,13 +84,6 @@ DDnode* DDnodeCtor(int val) {
 	node->left		=	node->right	=	NULL;
 
 	return node;
-}
-
-void DDnodeDtor(DDnode* node) {
-	node->val = node->prior = 0;
-	node->left = node->right = NULL;
-
-	free(node);
 }
 
 DDpair DDpairCtor(DDnode* first, DDnode* second) {

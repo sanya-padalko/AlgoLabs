@@ -3,6 +3,17 @@
 static RBnode NIL_NODE = {0, BLACK, &NIL_NODE, &NIL_NODE, &NIL_NODE};
 static RBnode* NIL = &NIL_NODE;
 
+static void NodeDtor(RBnode* node) {
+	if (!node || node == NIL)   return;
+
+	node->val   = 0;
+	node->color = BLACK;
+	node->left  = node->right = node->parent = NIL;
+	
+	free(node);
+}
+
+
 static RBnode* LeftRotate(RBnode* root, RBnode* x) {
 	RBnode* y = GetRight(x);
 
@@ -272,16 +283,6 @@ void ClearTree(RBnode* node) {
 	ClearTree(GetRight(node));
 	
 	NodeDtor(node);
-}
-
-void NodeDtor(RBnode* node) {
-	if (!node || node == NIL)   return;
-
-	node->val   = 0;
-	node->color = BLACK;
-	node->left  = node->right = node->parent = NIL;
-	
-	free(node);
 }
 
 int		GetVal	 (RBnode* node)	{ return (node) ? node->val    :     0; }

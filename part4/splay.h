@@ -16,7 +16,6 @@ SplayNode*	Delete			(SplayNode* root, int val)	;
 
 void		ClearTree		(SplayNode* node)			;
 SplayNode*	SplayNodeCtor	(int val)					;
-void		NodeDtor		(SplayNode* node)			;
 
 SplayNode*	GetLeft			(SplayNode* node)			;
 SplayNode*	GetRight		(SplayNode* node)			;

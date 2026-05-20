@@ -8,6 +8,13 @@ static int GetLevel() {
 	return lvl;
 }
 
+static void NodeDtor(SkipNode* node) {
+	if (!node)	return;
+
+	free(node->next);
+	free(node);
+}
+
 void Insert(SkipList* list, int val) {
 	SkipNode* update[MAX_LEVEL];
 	SkipNode* node = list->head;
@@ -100,11 +107,4 @@ void ListDtor(SkipList* list) {
 	}
 
 	free(list);
-}
-
-void NodeDtor(SkipNode* node) {
-	if (!node)	return;
-
-	free(node->next);
-	free(node);
 }

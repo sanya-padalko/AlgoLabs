@@ -1,5 +1,12 @@
 #include "splay.h"
 
+static void NodeDtor(SplayNode* node) {
+	node->val = 0;
+	node->left = node->right = NULL;
+
+	free(node);
+}
+
 static SplayNode* RightRotate(SplayNode* node) {
 	if (!node || !GetLeft(node))	return node;
 
@@ -146,13 +153,6 @@ SplayNode* SplayNodeCtor(int val) {
 	node->left		=	node->right	=	NULL;
 
 	return node;
-}
-
-void NodeDtor(SplayNode* node) {
-	node->val = 0;
-	node->left = node->right = NULL;
-
-	free(node);
 }
 
 SplayNode* GetLeft(SplayNode* node) {

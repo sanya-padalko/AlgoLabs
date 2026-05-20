@@ -17,7 +17,6 @@ AVLnode*	Delete		(AVLnode* root, int val);
 void		ClearTree	(AVLnode* node)			;
 
 AVLnode*	AVLnodeCtor	(int val)				;
-void		NodeDtor	(AVLnode* node)			;
 
 int			GetHeight	(AVLnode *node)			;
 AVLnode*	GetLeft		(AVLnode* node)			;

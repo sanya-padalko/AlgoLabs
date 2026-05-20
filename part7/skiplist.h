@@ -26,6 +26,5 @@ void        Delete          (SkipList* list, int val)	;
 SkipList*   SkipListCtor    ()							;
 SkipNode*   SkipNodeCtor    (int val, int level)		;
 void        ListDtor        (SkipList* list)			;
-void        NodeDtor        (SkipNode* node)			;
 
 #endif

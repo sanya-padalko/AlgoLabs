@@ -1,5 +1,12 @@
 #include "bst.h"
 
+static void NodeDtor(BSTnode* node) {
+	node->val  = 0;
+	node->left = node->right = NULL;
+
+	free(node);
+}
+
 BSTnode* Insert(BSTnode* node, int val) {
 	if (!node)	return BSTnodeCtor(val);
 
@@ -58,13 +65,6 @@ BSTnode* BSTnodeCtor(int val) {
 	node->left = node->right = NULL;
 
 	return node;
-}
-
-void NodeDtor(BSTnode* node) {
-	node->val  = 0;
-	node->left = node->right = NULL;
-
-	free(node);
 }
 
 int GetVal(BSTnode* node) {

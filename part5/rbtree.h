@@ -20,7 +20,6 @@ RBnode*     Delete          (RBnode* root, int val);
 void        ClearTree       (RBnode* root);
 
 RBnode*     RBnodeCtor      (int val);
-void        NodeDtor        (RBnode* node);
 
 RBnode*     GetLeft         (RBnode* node);
 RBnode*     GetRight        (RBnode* node);

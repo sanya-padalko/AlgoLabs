@@ -15,6 +15,13 @@ static void Update(AVLnode* node) {
 	node->height = hl + 1;
 }
 
+static void NodeDtor(AVLnode* node) {
+	node->val = node->height = 0;
+	node->left = node->right = NULL;
+
+	free(node);
+}
+
 static AVLnode* RightRotate(AVLnode* node) {
 	if (!node || !GetLeft(node))	return node;
 
@@ -151,13 +158,6 @@ AVLnode* AVLnodeCtor(int val) {
 	node->height = 1;
 
 	return node;
-}
-
-void NodeDtor(AVLnode* node) {
-	node->val = node->height = 0;
-	node->left = node->right = NULL;
-
-	free(node);
 }
 
 int GetHeight(AVLnode *node) {
