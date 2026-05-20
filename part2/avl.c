@@ -64,6 +64,24 @@ static AVLnode* BigLeftRotate(AVLnode* node) {
 	return LeftRotate(node);
 }
 
+static AVLnode* GetRotateNode(AVLnode* node, int h_diff, 
+											int l_val_diff,
+											int r_val_diff) {
+	if (h_diff > 1 && r_val_diff > 0)
+		return LeftRotate(node);
+	
+	if (h_diff < -1 && l_val_diff < 0)
+		return RightRotate(node);
+
+	if (h_diff > 1 && r_val_diff < 0)
+		return BigLeftRotate(node);
+	
+	if (h_diff < -1 && l_val_diff > 0)
+		return BigRightRotate(node);
+	
+	return node;
+}
+
 AVLnode* Insert(AVLnode* node, int val) {
 	if (node == NULL)   return AVLnodeCtor(val);
 
@@ -78,19 +96,7 @@ AVLnode* Insert(AVLnode* node, int val) {
 	Update(node);
 	int bal = GetBal(node);
 
-	if (bal > 1 && val > GetRight(node)->val)
-		return LeftRotate(node);
-	
-	if (bal < -1 && val < GetLeft(node)->val)
-		return RightRotate(node);
-
-	if (bal > 1 && val < GetRight(node)->val)
-		return BigLeftRotate(node);
-	
-	if (bal < -1 && val > GetLeft(node)->val)
-		return BigRightRotate(node);
-	
-	return node;
+	return GetRotateNode(node, bal, val - GetLeft(node)->val, val - GetRight(node)->val);
 }
 
 static AVLnode* MinValNode(AVLnode* node) {
@@ -127,19 +133,7 @@ AVLnode* Delete(AVLnode* node, int val) {
 	Update(node);
 	int bal = GetBal(node);
 
-	if (bal < -1 && GetBal(GetLeft(node)) <= 0)
-		return RightRotate(node);
-
-	if (bal < -1 && GetBal(GetLeft(node)) > 0)
-		return BigRightRotate(node);
-
-	if (bal > 1 && GetBal(GetRight(node)) >= 0)
-		return LeftRotate(node);
-
-	if (bal > 1 && GetBal(GetRight(node)) > 0)
-		return BigLeftRotate(node);
-
-	return node;
+	return GetRotateNode(node, bal, GetBal(GetLeft(node)), GetBal(GetRight(node)));
 }
 
 void ClearTree(AVLnode* node) {
