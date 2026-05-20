@@ -144,6 +144,7 @@ void ClearTree(AVLnode* node) {
 
 AVLnode* AVLnodeCtor(int val) {
 	AVLnode* node = (AVLnode*)calloc(1, sizeof(AVLnode));
+	MY_ASSERT(node, "calloc не сработал\n");
 
 	node->val    = val;
 	node->left   = node->right = NULL;

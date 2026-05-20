@@ -69,6 +69,7 @@ void Delete(SkipList* list, int val) {
 
 SkipList* SkipListCtor() {
 	SkipList* list	= (SkipList*)calloc(1, sizeof(SkipList));
+	MY_ASSERT(list, "calloc не сработал\n");
 
 	list->max_level	= MAX_LEVEL;
 	list->cur_level	= 0;
@@ -80,6 +81,7 @@ SkipList* SkipListCtor() {
 
 SkipNode* SkipNodeCtor(int val, int level) {
 	SkipNode* node	= (SkipNode*)calloc(1, sizeof(SkipNode));
+	MY_ASSERT(node, "calloc не сработал\n");
 
 	node->val		= val;
 	node->next		= (SkipNode**)calloc(level + 1, sizeof(SkipNode*));

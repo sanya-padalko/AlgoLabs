@@ -52,6 +52,7 @@ BSTnode* Delete(BSTnode* node, int val) {
 
 BSTnode* BSTnodeCtor(int val) {
 	BSTnode* node = (BSTnode*)calloc(1, sizeof(BSTnode));
+	MY_ASSERT(node, "calloc не сработал\n");
 
 	node->val = val;
 	node->left = node->right = NULL;

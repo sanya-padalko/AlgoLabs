@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include "../asserts.h"
 
 #define MAX_LEVEL	20
 #define P_FACTOR	0.5

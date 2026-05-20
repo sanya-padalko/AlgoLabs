@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "../asserts.h"
 
 typedef struct AVLnode {
 	int		 val;

@@ -256,6 +256,7 @@ RBnode* Delete(RBnode* root, int val) {
 
 RBnode* RBnodeCtor(int val) {
 	RBnode* node = (RBnode*)calloc(1, sizeof(RBnode));
+	MY_ASSERT(node, "calloc не сработал\n");
 
 	node->val   = val;
 	node->color = RED;

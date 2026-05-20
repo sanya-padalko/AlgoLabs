@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../asserts.h"
 
 typedef struct BSTnode {
 	int val;

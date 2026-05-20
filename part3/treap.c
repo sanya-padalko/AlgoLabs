@@ -69,6 +69,7 @@ void ClearTree(DDnode* node) {
 
 DDnode* DDnodeCtor(int val) {
 	DDnode* node	=	(DDnode*)calloc(1, sizeof(DDnode));
+	MY_ASSERT(node, "calloc не сработал\n");
 
 	node->val		=	val;
 	node->prior		=	rand();
@@ -87,6 +88,7 @@ void DDnodeDtor(DDnode* node) {
 
 DDpair DDpairCtor(DDnode* first, DDnode* second) {
 	DDpair* pair_ptr	=	(DDpair*)calloc(1, sizeof(DDpair));
+	MY_ASSERT(pair_ptr, "calloc не сработал\n");
 
 	pair_ptr->first		=	first;
 	pair_ptr->second	=	second;

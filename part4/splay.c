@@ -140,6 +140,7 @@ void ClearTree(SplayNode* node) {
 
 SplayNode* SplayNodeCtor(int val) {
 	SplayNode* node	=	(SplayNode*)calloc(1, sizeof(SplayNode));
+	MY_ASSERT(node, "calloc не сработал\n");
 
 	node->val		=	val;
 	node->left		=	node->right	=	NULL;
