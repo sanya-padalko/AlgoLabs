@@ -1,7 +1,6 @@
 #ifndef __BINOM_HEAP__
 #define __BINOM_HEAP__
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <limits.h>

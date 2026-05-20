@@ -1,12 +1,12 @@
 #include "binary-heap.h"
 
-void swap(void* a, void* b, size_t size) {
-    void* c = malloc(size);
-    memcpy(c, a, size);
-    memcpy(a, b, size);
-    memcpy(b, c, size);
+void swap(void* arg1, void* arg2, size_t size) {
+    void* add = malloc(size);
+    memcpy(add, arg1, size);
+    memcpy(arg1, arg2, size);
+    memcpy(arg2, add, size);
 
-	free(c);
+	free(add);
 }
 
 static int GetLeft(int ind) {
@@ -17,10 +17,10 @@ static int GetRight(int ind) {
 	return 2 * ind + 2;
 }
 
-void sift_down(int *arr, int n, int i) {
-    int cur = i;
+void sift_down(int *arr, int n, int ind) {
+    int cur = ind;
     while (1) {
-        cur = i;
+        cur = ind;
         int left = GetLeft(cur);
         int right = GetRight(cur);
         if (left < n && arr[left] < arr[cur])
@@ -28,24 +28,24 @@ void sift_down(int *arr, int n, int i) {
         if (right < n && arr[right] < arr[cur])
             cur = right;
         
-        if (cur == i)
+        if (cur == ind)
             break;
         
-        swap(arr + i, arr + cur, sizeof(int));
+        swap(arr + ind, arr + cur, sizeof(int));
 
-        i = cur;
+        ind = cur;
     }
 }
 
-void sift_up(int *arr, int i) {
-    while (i > 0 && arr[i] < arr[(i - 1) / 2]) {
-        swap(arr + i, arr + (i - 1) / 2, sizeof(int));
-        i = (i - 1) / 2;
+void sift_up(int *arr, int ind) {
+    while (ind > 0 && arr[ind] < arr[(ind - 1) / 2]) {
+        swap(arr + ind, arr + (ind - 1) / 2, sizeof(int));
+        ind = (ind - 1) / 2;
     }
 }
 
 void build_heap(int *arr, int n) {
-    for (int i = n / 2 - 1; i >= 0; --i) {
-        sift_down(arr, n, i);
+    for (int ind = n / 2 - 1; ind >= 0; --ind) {
+        sift_down(arr, n, ind);
     }
 }
