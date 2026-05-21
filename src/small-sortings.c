@@ -10,24 +10,24 @@ void swap(void* arg1, void* arg2, int size) {
 }
 
 void Insert_sort(uint32_t* arr, int size) {
-    for (int i = 1; i < size; ++i) {
-        int j = i - 1;
-        int val = arr[i];
-        while (j >= 0 && val < arr[j]) {
-            arr[j + 1] = arr[j];
-            --j;
+    for (int ind = 1; ind < size; ++ind) {
+        int ins_ind = ind - 1;
+        int val = arr[ind];
+        while (ins_ind >= 0 && val < arr[ins_ind]) {
+            arr[ins_ind + 1] = arr[ins_ind];
+            --ins_ind;
         }
-        arr[j + 1] = val;
+        arr[ins_ind + 1] = val;
     }
 }
 
 void Bubble_sort(uint32_t* arr, int size) {
-    for (int i = 0; i < size - 1; ++i) {
+    for (int ind = 0; ind < size - 1; ++ind) {
         int check_swap = 0;
 
-        for (int j = 0; j < size - 1 - i; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                swap(arr + j, arr + j + 1, sizeof(int));
+        for (int sw_ind = 0; sw_ind < size - 1 - ind; ++sw_ind) {
+            if (arr[sw_ind] > arr[sw_ind + 1]) {
+                swap(arr + sw_ind, arr + sw_ind + 1, sizeof(int));
                 check_swap = 1;
             }
         }
@@ -38,15 +38,15 @@ void Bubble_sort(uint32_t* arr, int size) {
 }
 
 void Select_sort(uint32_t* arr, int size) {
-    for (int i = 0; i < size; ++i) {
-        uint32_t ans = i;
-        for (int j = i; j < size; ++j) {
-            if (arr[ans] > arr[j])
-                ans = j;
+    for (int ind = 0; ind < size; ++ind) {
+        uint32_t ans = ind;
+        for (int sel_ind = ind; sel_ind < size; ++sel_ind) {
+            if (arr[ans] > arr[sel_ind])
+                ans = sel_ind;
         }
         uint32_t val = arr[ans];
-        arr[ans] = arr[i];
-        arr[i] = val;
+        arr[ans] = arr[ind];
+        arr[ind] = val;
     }
 }
 
@@ -56,30 +56,30 @@ void Shell_sort(uint32_t* arr, int size) {
         gap = 3 * gap + 1;
     
     while (gap > 0) {
-        for (int i = gap; i < size; ++i) {
-            uint32_t val = arr[i];
-            int j = i;
-            while (j >= gap && arr[j - gap] > val) {
-                arr[j] = arr[j - gap];
-                j -= gap;
+        for (int ind = gap; ind < size; ++ind) {
+            uint32_t val = arr[ind];
+            int best_ind = ind;
+            while (best_ind >= gap && arr[best_ind - gap] > val) {
+                arr[best_ind] = arr[best_ind - gap];
+                best_ind -= gap;
             }
-            arr[j] = val;
+            arr[best_ind] = val;
         }
         gap /= 3;
     }
 }
 
 void OrigShell_sort(uint32_t* arr, int size) {
-    for (int i = 1; (size >> i) > 0; ++i) {
-        int gap = size >> i;
-        for (int i = gap; i < size; ++i) {
-            uint32_t val = arr[i];
-            int j = i;
-            while (j >= gap && arr[j - gap] > val) {
-                arr[j] = arr[j - gap];
-                j -= gap;
+    for (int ind = 1; (size >> ind) > 0; ++ind) {
+        int gap = size >> ind;
+        for (int ind = gap; ind < size; ++ind) {
+            uint32_t val = arr[ind];
+            int best_ind = ind;
+            while (best_ind >= gap && arr[best_ind - gap] > val) {
+                arr[best_ind] = arr[best_ind - gap];
+                best_ind -= gap;
             }
-            arr[j] = val;
+            arr[best_ind] = val;
         }
     }
 }
@@ -102,31 +102,31 @@ void PrattShell_sort(uint32_t* arr, int size) {
         while (!check(gap))
             --gap;
 
-        for (int i = gap; i < size; ++i) {
-            uint32_t val = arr[i];
-            int j = i;
-            while (j >= gap && arr[j - gap] > val) {
-                arr[j] = arr[j - gap];
-                j -= gap;
+        for (int ind = gap; ind < size; ++ind) {
+            uint32_t val = arr[ind];
+            int best_ind = ind;
+            while (best_ind >= gap && arr[best_ind - gap] > val) {
+                arr[best_ind] = arr[best_ind - gap];
+                best_ind -= gap;
             }
-            arr[j] = val;
+            arr[best_ind] = val;
         }
     }
 }
 
 void CiuraShell_sort(uint32_t* arr, int size) {
     int gaps[8] = {1, 4, 10, 23, 57, 132, 301, 701};
-    for (int i = 7; i >= 0; --i) {
-        int gap = gaps[i];
+    for (int ind = 7; ind >= 0; --ind) {
+        int gap = gaps[ind];
 
-        for (int i = gap; i < size; ++i) {
-            uint32_t val = arr[i];
-            int j = i;
-            while (j >= gap && arr[j - gap] > val) {
-                arr[j] = arr[j - gap];
-                j -= gap;
+        for (int ind = gap; ind < size; ++ind) {
+            uint32_t val = arr[ind];
+            int best_ind = ind;
+            while (best_ind >= gap && arr[best_ind - gap] > val) {
+                arr[best_ind] = arr[best_ind - gap];
+                best_ind -= gap;
             }
-            arr[j] = val;
+            arr[best_ind] = val;
         }
     }
 }
@@ -134,14 +134,14 @@ void CiuraShell_sort(uint32_t* arr, int size) {
 void GonnetShell_sort(uint32_t* arr, int size) {
     int gap = size;
     for (; gap > 0; ) {
-        for (int i = gap; i < size; ++i) {
-            uint32_t val = arr[i];
-            int j = i;
-            while (j >= gap && arr[j - gap] > val) {
-                arr[j] = arr[j - gap];
-                j -= gap;
+        for (int ind = gap; ind < size; ++ind) {
+            uint32_t val = arr[ind];
+            int best_ind = ind;
+            while (best_ind >= gap && arr[best_ind - gap] > val) {
+                arr[best_ind] = arr[best_ind - gap];
+                best_ind -= gap;
             }
-            arr[j] = val;
+            arr[best_ind] = val;
         }
 
         if (gap == 1)

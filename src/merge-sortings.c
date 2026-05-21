@@ -1,24 +1,24 @@
 #include "merge-sortings.h"
 
 void MergeSeg(uint32_t* arr, int lt, int mid, int rt) {
-    int i1 = lt;
-    int i2 = mid + 1;
-    int j = lt;
+    int ind1 	= lt;
+    int ind2 	= mid + 1;
+    int add_ind = lt;
 
-    while (i1 <= mid || i2 <= rt) {
-        if (i1 > mid) {
-            add_arr[j++] = arr[i2++];
+    while (ind1 <= mid || ind2 <= rt) {
+        if (ind1 > mid) {
+            add_arr[add_ind++] = arr[ind2++];
             continue;
         }
-        if (i2 > rt) {
-            add_arr[j++] = arr[i1++];
+        if (ind2 > rt) {
+            add_arr[add_ind++] = arr[ind1++];
             continue;
         }
 
-        if (arr[i1] < arr[i2])
-            add_arr[j++] = arr[i1++];
+        if (arr[ind1] < arr[ind2])
+            add_arr[add_ind++] = arr[ind1++];
         else
-            add_arr[j++] = arr[i2++];
+            add_arr[add_ind++] = arr[ind2++];
     }
 
     for (int i = lt; i <= rt; ++i)

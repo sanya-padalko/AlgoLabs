@@ -3,11 +3,14 @@
 
 #define MAX_SIZE 1000000
 
-int compar(void const *a, void const *b) {
-    if (*(const unsigned int*)a < *(const unsigned int*)b)
+int compar(void const *arg1, void const *arg2) {
+    if (*(const unsigned int*)arg1 < *(const unsigned int*)arg2)
         return -1;
 
-    return 1;
+	if (*(const unsigned int*)arg1 > *(const unsigned int*)arg2)
+        return 1;
+
+    return 0;
 }
 
 int main() {
@@ -19,8 +22,8 @@ int main() {
         arr[ind++] = value;
 
     qsort(arr, ind, sizeof(int), compar);
-    for (int i = 0; i < ind; ++i)
-        printf("%u ", arr[i]);
+    for (int arr_ind = 0; arr_ind < ind; ++arr_ind)
+        printf("%u ", arr[arr_ind]);
 
     printf("\n");
     free(arr);

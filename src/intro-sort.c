@@ -1,9 +1,9 @@
 #include "intro-sort.h"
 
-int get_log(int n) {
+int get_log(int num) {
     int ans = 1;
-    while (n > 1) {
-        n /= 2;
+    while (num > 1) {
+        num /= 2;
         ++ans;
     }
 

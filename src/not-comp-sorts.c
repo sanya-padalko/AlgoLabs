@@ -5,14 +5,14 @@ void LSD_sort(unsigned int* arr, int size) {
     for (unsigned int mask = 0xff, shift = 0; mask > 0; mask <<= 8, shift += 8) {
         unsigned int pref_cnt[MAX];
         memset(pref_cnt, 0, sizeof(pref_cnt));
-        for (int i = 0; i < size; ++i)
-            ++pref_cnt[(arr[i] & mask) >> shift];
+        for (int ind = 0; ind < size; ++ind)
+            ++pref_cnt[(arr[ind] & mask) >> shift];
 
-        for (int i = 1; i < MAX; ++i)
-            pref_cnt[i] += pref_cnt[i - 1];
+        for (int ind = 1; ind < MAX; ++ind)
+            pref_cnt[ind] += pref_cnt[ind - 1];
 
-        for (int i = size - 1; i >= 0; --i)
-            res[--pref_cnt[(arr[i] & mask) >> shift]] = arr[i];
+        for (int ind = size - 1; ind >= 0; --ind)
+            res[--pref_cnt[(arr[ind] & mask) >> shift]] = arr[ind];
 
         memcpy(arr, res, sizeof(int) * size);
     }
@@ -20,40 +20,40 @@ void LSD_sort(unsigned int* arr, int size) {
 	free(res);
 }
 
-void RecMSD_sort(unsigned int* arr, int l, int r, unsigned int mask, int shift) {
-    if (l >= r || shift < 0)
+void RecMSD_sort(unsigned int* arr, int lt, int rt, unsigned int mask, int shift) {
+    if (lt >= rt || shift < 0)
         return;
 
-    unsigned int* res = (unsigned int*)calloc(r - l + 1, sizeof(int));
+    unsigned int* res = (unsigned int*)calloc(rt - lt + 1, sizeof(int));
     unsigned int pref_cnt[MAX];
     unsigned int cnt[MAX];
     memset(pref_cnt, 0, sizeof(pref_cnt));
     memset(cnt, 0, sizeof(cnt));
-    for (int i = l; i <= r; ++i)
-        ++cnt[(arr[i] & mask) >> shift];
+    for (int ind = lt; ind <= rt; ++ind)
+        ++cnt[(arr[ind] & mask) >> shift];
 
     pref_cnt[0] = cnt[0];
-    for (int i = 1; i < MAX; ++i)
-        pref_cnt[i] = pref_cnt[i - 1] + cnt[i];
+    for (int ind = 1; ind < MAX; ++ind)
+        pref_cnt[ind] = pref_cnt[ind - 1] + cnt[ind];
 
-    for (int i = l; i <= r; ++i) {
-        --pref_cnt[(arr[i] & mask) >> shift];
-        res[pref_cnt[(arr[i] & mask) >> shift]] = arr[i];
+    for (int ind = lt; ind <= rt; ++ind) {
+        --pref_cnt[(arr[ind] & mask) >> shift];
+        res[pref_cnt[(arr[ind] & mask) >> shift]] = arr[ind];
     }
 
-    memcpy(arr + l, res, (r - l + 1) * sizeof(int));
+    memcpy(arr + lt, res, (rt - lt + 1) * sizeof(int));
 
     free(res);
     mask = (mask >> 8);
     shift = (shift - 8);
 
     pref_cnt[0] = cnt[0];
-    for (int i = 1; i < MAX; ++i)
-        pref_cnt[i] = pref_cnt[i - 1] + cnt[i];
+    for (int ind = 1; ind < MAX; ++ind)
+        pref_cnt[ind] = pref_cnt[ind - 1] + cnt[ind];
 
-    RecMSD_sort(arr, l, l + pref_cnt[0] - 1, mask, shift);
-    for (int i = 1; i < MAX; ++i)
-        RecMSD_sort(arr, l + pref_cnt[i - 1], l + pref_cnt[i] - 1, mask, shift);
+    RecMSD_sort(arr, lt, lt + pref_cnt[0] - 1, mask, shift);
+    for (int ind = 1; ind < MAX; ++ind)
+        RecMSD_sort(arr, lt + pref_cnt[ind - 1], lt + pref_cnt[ind] - 1, mask, shift);
 }
 
 void MSD_sort(unsigned int* arr, int size) {

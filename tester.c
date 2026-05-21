@@ -13,8 +13,8 @@
 void SaveResults(double* time_result, const char* sort_file_name, int res_cnt) {
     FILE* res_file = fopen(sort_file_name, "w");
 
-    for (int i = 0; i < res_cnt; ++i)
-        fprintf(res_file, "%lg\n", time_result[i]);
+    for (int ind = 0; ind < res_cnt; ++ind)
+        fprintf(res_file, "%lg\n", time_result[ind]);
 
     fclose(res_file);
 }
@@ -40,13 +40,13 @@ void Part1() { // bubble, insertion, selection, shell's sortings
 }
 
 void Part2() { // bottom-up heap-sort
-    for (int k = 2; k <= 10; ++k) {
+    for (int heap_k = 2; heap_k <= 10; ++heap_k) {
         char* heap_file_name = (char*)calloc(20, sizeof(char));
-        sprintf(heap_file_name, "part2/heap-%d", k);
+        sprintf(heap_file_name, "part2/heap-%d", heap_k);
 
-        K_HEAP = k;
+        K_HEAP = heap_k;
         SaveResults(Test("big_tests/", Bottom_up_heap_sort, 0, 1000000, 10000), heap_file_name, 100);
-        printf("Heap with %d sons counted\n", k);
+        printf("Heap with %d sons counted\n", heap_k);
     }
 }
 
@@ -96,8 +96,8 @@ void Part5() { // hoar's sort with different pivots
 }
 
 void Part6() { // hoar's sort with shell sort on small segments
-    for (int i = 1; i <= 512; i *= 2) {
-        block_size = i;
+    for (int ind = 1; ind <= 512; ind *= 2) {
+        block_size = ind;
         char* data_file = (char*)calloc(30, sizeof(char));
         sprintf(data_file, "part6/hoar-shell-%d", block_size);
 
@@ -107,8 +107,8 @@ void Part6() { // hoar's sort with shell sort on small segments
 }
 
 void Part7() { // introsort with different heap's deeps
-    for (int i = 1; i <= 16; i *= 2) {
-        max_deep = i;
+    for (int ind = 1; ind <= 16; ind *= 2) {
+        max_deep = ind;
         char* intro_file_name = (char*)calloc(40, sizeof(char));
         sprintf(intro_file_name, "part7/intro-heap-%d", max_deep);
         
