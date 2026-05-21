@@ -9,7 +9,7 @@ fi
 gcc tester.c src/*.c -o tester -Iinc
 ./tester 9
 cd part9
-python ../plot-gens/part9-plot.py
+python3 ../plot-gens/part9-plot.py
 cd ..
 
 find "part9" -maxdepth 1 -type f ! -iname "*.png" -delete
