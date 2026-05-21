@@ -6,7 +6,7 @@
 #include "small-sortings.h"
 #include "part-sortings.h"
 
-int block_size = 1;
+extern int block_size;
 
 void Hoar_Shell_sort(uint32_t* arr, int lt, int rt, 
                         int (*pivot_selector)(uint32_t*, int, int), 

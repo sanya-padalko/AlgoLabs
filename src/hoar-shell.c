@@ -1,5 +1,7 @@
 #include "hoar-shell.h"
 
+int block_size = 1;
+
 void Hoar_Shell_sort(unsigned int* arr, int lt, int rt, 
                             int (*pivot_selector)(unsigned int*, int, int), 
                             int (*partition)(unsigned int*, int, int, int)) {

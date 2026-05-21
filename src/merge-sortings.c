@@ -1,5 +1,7 @@
 #include "merge-sortings.h"
 
+uint32_t* add_arr = NULL;
+
 void MergeSeg(uint32_t* arr, int lt, int mid, int rt) {
     int ind1 	= lt;
     int ind2 	= mid + 1;

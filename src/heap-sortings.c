@@ -1,5 +1,7 @@
 #include "heap-sortings.h"
 
+int K_HEAP = 2;
+
 int get_parent(int ind) {
     return (ind - 1) / K_HEAP;
 }
@@ -44,6 +46,8 @@ void sift_down(uint32_t *arr, int size, int el_ind) {
 }
 
 void Bottom_up_heap_sort(uint32_t* arr, int size) {
+	if (size <= 1)	return;
+	
     for (int ind = get_parent(size - 1); ind >= 0; --ind)
         sift_down(arr, size, ind);
     

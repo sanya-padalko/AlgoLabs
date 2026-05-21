@@ -29,10 +29,10 @@ static double* Test(const char* test_path, void (*func)(unsigned int*, int), int
             sprintf(test_full_name_out, "%s%d_%d.out", test_path, size, ind);
 
             FILE* test_file_in = fopen(test_full_name_in, "r");
-            for (int i = 0; i < size; ++i) {
+            for (int arr_ind = 0; arr_ind < size; ++arr_ind) {
                 unsigned int x;
                 fscanf(test_file_in, "%u", &x);
-                arr[i] = x;
+                arr[arr_ind] = x;
             }
             fclose(test_file_in);
 
@@ -42,10 +42,10 @@ static double* Test(const char* test_path, void (*func)(unsigned int*, int), int
             double spent_time = (GetTime() - start_time);
             sum_time_spent += spent_time;
 
-            for (int i = 0; i < size; ++i) {
+            for (int arr_ind = 0; arr_ind < size; ++arr_ind) {
                 unsigned int x;
                 fscanf(test_file_out, "%u", &x);
-                if (arr[i] != x) {
+                if (arr[arr_ind] != x) {
                     fprintf(stderr, "Wrong sorting on size = %d, ind = %d\n", size, ind);
                     if (size <= 200) {
                         for (int j = 0; j < size; ++j) {
@@ -58,6 +58,9 @@ static double* Test(const char* test_path, void (*func)(unsigned int*, int), int
                 }
             }
             fclose(test_file_out);
+
+			free(test_full_name_in);
+			free(test_full_name_out);
         }
 
         res_arr[res_ind++] = sum_time_spent / 5.0;

@@ -8,9 +8,9 @@
 #include "hoar-shell.h"
 #include "heap-sortings.h"
 
-int max_deep = 1;
+extern int max_deep;
 
-int get_log(int n);
+int		get_log(int num)															;
 
 void	RecIntro_sort	(uint32_t* arr, int lt, int rt, 
                             int (*pivot_selector)(uint32_t*, int, int), 

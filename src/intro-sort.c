@@ -1,5 +1,7 @@
 #include "intro-sort.h"
 
+int max_deep = 1;
+
 int get_log(int num) {
     int ans = 1;
     while (num > 1) {

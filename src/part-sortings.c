@@ -1,5 +1,7 @@
 #include "part-sortings.h"
 
+int (*hoar_pivot)(uint32_t*, int, int) = pivot_central;
+
 int pivot_central(uint32_t* arr, int lt, int rt) {
     return (lt + rt) / 2;
 }
