@@ -8,8 +8,20 @@ fi
 
 gcc tester.c src/*.c -o tester -Iinc
 ./tester
+
+if [[ -d ".venv" ]]; then
+	source .venv/bin/activate
+else
+	python3 -m venv .venv
+	source .venv/bin/activate
+fi
+
+pip install matplotlib
+
 cd part10
 python3 ../plot-gens/part10-plot.py
 cd ..
+
+deactivate
 
 find "part10" -maxdepth 1 -type f ! -iname "*.png" -delete
