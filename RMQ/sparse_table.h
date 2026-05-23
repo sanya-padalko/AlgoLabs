@@ -17,10 +17,12 @@ typedef struct Node {
 
 typedef struct SparseN {
 	Node st[MAXN][MAX_LEVEL];
+	int size;
 } SparseN;
 
 typedef struct SparseLog {
 	Node st[MAX_LEVEL][MAXN];
+	int size;
 } SparseLog;
 
 int			GetMinN			(SparseN* table, int lt, int rt)	;

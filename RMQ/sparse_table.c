@@ -3,10 +3,10 @@
 int lg[MAXN];
 
 int GetMinN(SparseN* table, int lt, int rt) {
-	MY_ASSERT(table,		"Нулевой указатель на Sparse Table\n");
-	MY_ASSERT(0 <= lt,		"Недопустимая левая граница\n");
-	MY_ASSERT(rt < MAXN,	"Недопустимая правая граница\n");
-	MY_ASSERT(lt <= rt, 	"Вырожденный отрезок\n");
+	MY_ASSERT(table,			"Нулевой указатель на Sparse Table\n");
+	MY_ASSERT(0 <= lt,			"Недопустимая левая граница\n");
+	MY_ASSERT(rt < table->size,	"Недопустимая правая граница\n");
+	MY_ASSERT(lt <= rt, 		"Вырожденный отрезок\n");
 
 	int len		= rt - lt + 1;
 	int log_len = lg[len];
@@ -16,10 +16,10 @@ int GetMinN(SparseN* table, int lt, int rt) {
 }
 
 int GetMinLog(SparseLog* table, int lt, int rt) {
-	MY_ASSERT(table,		"Нулевой указатель на Sparse Table\n");
-	MY_ASSERT(0 <= lt,		"Недопустимая левая граница\n");
-	MY_ASSERT(rt < MAXN,	"Недопустимая правая граница\n");
-	MY_ASSERT(lt <= rt, 	"Вырожденный отрезок\n");
+	MY_ASSERT(table,			"Нулевой указатель на Sparse Table\n");
+	MY_ASSERT(0 <= lt,			"Недопустимая левая граница\n");
+	MY_ASSERT(rt < table->size,	"Недопустимая правая граница\n");
+	MY_ASSERT(lt <= rt, 		"Вырожденный отрезок\n");
 
 	int len		= rt - lt + 1;
 	int log_len = lg[len];
@@ -33,6 +33,7 @@ SparseN* ArrNCtor(int size, int* arr) {
 	MY_ASSERT(size >= 0, "Недопустимый размер\n");
 
 	SparseN* table = SparseNCtor();
+	table->size = size;
 	for (int i = 0; i < size; ++i)
 		table->st[i][0].min = arr[i];
 	
@@ -54,6 +55,7 @@ SparseLog* ArrLogCtor(int size, int* arr) {
 	MY_ASSERT(size >= 0, "Недопустимый размер\n");
 
 	SparseLog* table = SparseLogCtor();
+	table->size = size;
 	for (int i = 0; i < size; ++i)
 		table->st[0][i].min = arr[i];
 	
