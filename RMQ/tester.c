@@ -20,8 +20,8 @@ void Test(int size, int* arr) {
 	double end	 = 0;
 	
 	for (int seg_ind = 0; seg_ind < seg_test_cnt; ++seg_ind) {
-		int l = rand() % size;
-		int r = rand() % (size - l) + l;
+		int l = rand() % (size - 1);
+		int r = rand() % (size - l - 1) + l + 1;
 
 		start	= GetTime();
 		GetMinN(table1, l, r);

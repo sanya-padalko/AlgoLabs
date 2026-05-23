@@ -41,8 +41,8 @@ void Test(int size, int* arr) {
 			test_sum_fen += (end - start);
 		}
 		else {
-			int l = rand() % size;
-			int r = rand() % (size - l) + l;
+			int l = rand() % (size - 1);
+			int r = rand() % (size - l - 1) + l + 1;
 
 			start	= GetTime();
 			int seg_res = FindSum(seg_tree, l, r + 1);
