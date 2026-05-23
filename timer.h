@@ -1,7 +1,5 @@
-#include <sys/time.h>
+#include <time.h>
 
 static double GetTime() {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return tv.tv_sec * 1000 + tv.tv_usec / 1000.0;
+	return (double)clock() * 1000.0 / CLOCKS_PER_SEC;
 }
