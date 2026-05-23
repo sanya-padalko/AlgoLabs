@@ -45,16 +45,18 @@ void Test(int size, int* arr) {
 			int r = rand() % (size - l) + l;
 
 			start	= GetTime();
-			FindSum(seg_tree, l, r + 1);
+			int seg_res = FindSum(seg_tree, l, r + 1);
 			end		= GetTime();
 
 			test_sum_seg += (end - start);
 
 			start	= GetTime();
-			SegSum(fenwick, l + 1, r + 1);
+			int fen_res = SegSum(fenwick, l + 1, r + 1);
 			end		= GetTime();
 
 			test_sum_fen += (end - start);
+
+			MY_ASSERT(seg_res == fen_res, "Фенвик и ДО дали различные результаты на запросе №%d\n", seg_ind);
 		}
 	}
 
