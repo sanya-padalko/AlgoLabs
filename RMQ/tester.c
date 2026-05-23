@@ -49,6 +49,7 @@ int main() {
 	const int test_size = 1e6;
 	const int test_cnt	= 5;
 	int* arr = (int*)calloc(test_size, sizeof(int));
+	MY_ASSERT(arr, "calloc не сработал\n");
 
 	for (int ind = 0; ind < test_size; ++ind)
 		arr[ind] = rand();
@@ -60,6 +61,7 @@ int main() {
 	sum_Log /= test_cnt;
 
 	FILE* res_file = fopen("results/sparse_table_comp.md", "w");
+	MY_ASSERT(res_file, "Файл для результатов не открылся\n");
 
 	fprintf(res_file, "## Результаты сравнения двух вариантов Sparse Table\n");
 	fprintf(res_file, "| Тип Sparse Table | Среднее затраченное время на 1e6 операций |\n");
@@ -69,5 +71,5 @@ int main() {
 
 	fclose(res_file);
 
-	printf("Results saved in RSQ/results/sparse_table_comp.md\n");
+	printf("Results saved in results/sparse_table_comp.md\n");
 }
