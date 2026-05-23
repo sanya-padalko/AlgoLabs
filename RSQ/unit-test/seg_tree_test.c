@@ -47,6 +47,8 @@ TEST(test_change,
 			int ch_ind	= rand() % 1000;
 
 			ChangeVal(tree, ch_ind, new_val);
+
+			arr[ch_ind] = new_val;
 		}
 
 		int l = rand() % 1000;

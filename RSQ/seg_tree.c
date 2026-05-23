@@ -39,7 +39,7 @@ static void RecChangeVal(SegTree* tree, int ind, int lt, int rt, int q_ind, int 
 	TREE_VERIFY(tree);
 	MY_ASSERT(0 <= ind && ind < 2 * tree->size,	"Неправильный индекс вершины\n");
 	
-	if (rt <= ind || ind < lt)	return;
+	if (rt <= q_ind || q_ind < lt)	return;
 
 	if (lt + 1 == rt) {
 		tree->nodes[ind].sum = q_val;
